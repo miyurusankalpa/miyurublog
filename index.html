@@ -22,7 +22,7 @@ dataType: "text",
 success: function(csv) {
 	var data = csvJSON(csv);
 		 for(var j=0;j<data.length;j++){
-		 $("#test").append('<div id="'+data[j]['id']+'"><a href="/post/'+data[j]['url']+'"><h2>'+data[j]['tittle']+'</h2></a> <b>'+data[j]['date']+'</b></div>');
+		 $("#test").append('<div id="'+data[j]['id']+'"><a href="/posts/'+data[j]['url']+'"><h2>'+data[j]['tittle']+'</h2></a> <b>'+data[j]['date']+'</b></div>');
 		  console.log(data[j]['url']);
 	  }
 		console.log(data);
