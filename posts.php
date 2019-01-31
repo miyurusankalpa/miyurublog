@@ -23,20 +23,23 @@ ob_start();
 <html>
 <head>
 <meta http-equiv="Content-Type" CONTENT="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo $title; ?></title>
 <style>
     body {
-        width: 50%;
+        max-width: 90ex;
         margin: 0 auto;
         font-family: Tahoma, Verdana, Arial, sans-serif;
 		margin-top: 30px;
     }
 	code {
-    display: block;
-    overflow-x: auto;
-    padding: 0.5em;
-    background: #333;
-    color: white;
+		display: block;
+		overflow-x: auto;
+		padding: 0.5em;
+		background: #333;
+		color: white;
+	}
+}
 </style>
 </head>
 <body>
@@ -44,6 +47,8 @@ ob_start();
 <?php
 echo $content;
 ?>
+<hr>
+<p style="text-align:right;">By Miyuru <br>Page generated on <?php echo date('d M Y',time()); ?></p>
 <img src="https://www.miyuru.lk/Buffy.php?idsite=3&amp;rec=1" style="border:0" alt="" />
 </body>
 </html>
