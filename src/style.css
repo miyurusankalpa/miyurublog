@@ -55,12 +55,11 @@
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
   --color-primary: #d1d1d1;
-  --color-dark: #0b6f8c;
+  --color-dark: #061f2b;
   --color-text: #fff;
   --color-table: black;
   --color-text-light: #ededed;
-  --color-heading: #4a4a4a;
-  --color-heading-black: black;
+  --color-heading: #7ad9ff;
   --color-accent: #d1dce5;
 }
 
@@ -128,7 +127,7 @@ h6 {
 h1 {
   font-weight: var(--fontWeight-black);
   font-size: var(--fontSize-6);
-  color: var(--color-heading-black);
+  color: var(--color-heading);
 }
 
 h2 {
