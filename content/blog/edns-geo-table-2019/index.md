@@ -65,7 +65,6 @@ table, th, td {
 </tbody>
 </table>
 
-  
-All tests are conducted on IPv4 and from Sri Lanka.  (AS[18001](https://db-ip.com/as18001))
+All tests are conducted on IPv4 and from Sri Lanka. (AS[18001](https://db-ip.com/as18001))
 
 Overall Google and OpenDNS, which support EDNS seems the best.

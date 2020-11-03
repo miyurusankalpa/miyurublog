@@ -19,6 +19,7 @@ then create a user called opentracker and switch to that user
 sudo useradd opentracker -m
 su - opentracker
 ```
+
 clone the opentracker repo
 
 ```bash
@@ -39,13 +40,15 @@ nano Makefile
 
 In the makefile, uncomment the following
 
-* to enable IPv6
+- to enable IPv6
+
 ```{diff}
 -#FEATURES+=-DWANT_V6
 +FEATURES+=-DWANT_V6
 ```
 
-* to enable gzip compression
+- to enable gzip compression
+
 ```{diff}
 -#FEATURES+=-DWANT_COMPRESSION_GZIP
 +FEATURES+=-DWANT_COMPRESSION_GZIP

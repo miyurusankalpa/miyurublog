@@ -9,7 +9,7 @@ module.exports = {
     siteUrl: `https://blog.miyuru.lk/`,
     social: {
       twitter: `miyurusankalpa`,
-	  linkedin: `miyurusankalpa`,
+      linkedin: `miyurusankalpa`,
     },
   },
   plugins: [
@@ -43,12 +43,12 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-		  {
-			resolve: `gatsby-remark-vscode`,
-			options: {
-				theme: 'Abyss' // Or install your favorite theme from GitHub
-			},
-		 },
+          {
+            resolve: `gatsby-remark-vscode`,
+            options: {
+              theme: "Abyss", // Or install your favorite theme from GitHub
+            },
+          },
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
@@ -57,18 +57,18 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-	`gatsby-plugin-draft`,
-	`gatsby-plugin-sitemap`,
-  {
-    resolve: 'gatsby-plugin-matomo',
-    options: {
-      siteId: '3',
-      matomoUrl: '//matomo.miyuru.lk',
-      siteUrl: 'https://blog.miyuru.lk',
-      matomoPhpScript: 'Jeff.php',
-      matomoJsScript: 'Jeff.php'
-    }
-  },
+    `gatsby-plugin-draft`,
+    `gatsby-plugin-sitemap`,
+    {
+      resolve: "gatsby-plugin-matomo",
+      options: {
+        siteId: "3",
+        matomoUrl: "//matomo.miyuru.lk",
+        siteUrl: "https://blog.miyuru.lk",
+        matomoPhpScript: "Jeff.php",
+        matomoJsScript: "Jeff.php",
+      },
+    },
     `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -79,11 +79,11 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/icon.png`,
+        icon: `content/assets/gatsby-icon.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
-	`gatsby-plugin-netlify-cms`,
+    `gatsby-plugin-netlify-cms`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

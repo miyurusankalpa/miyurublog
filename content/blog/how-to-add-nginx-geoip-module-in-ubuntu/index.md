@@ -6,15 +6,19 @@ draft: false
 ---
 
 First add the nginx stable repo:
+
 ```bash
 sudo add-apt-repository ppa:nginx/stable
 ```
 
 Then run apt update:
+
 ```bash
 sudo apt-get update
 ```
+
 And get the nginx geoip module:
+
 ```bash
 sudo apt-get install nginx-module-geoip
 ```
@@ -26,6 +30,7 @@ To load the nginx module, open nginx.conf:
 ```bash
 sudo nano /etc/nginx/nginx.conf
 ```
+
 add add below in the main context:
 
 ```
@@ -34,4 +39,4 @@ load_module "modules/ngx_http_geoip_module.so";
 
 The module will be loaded, when you reload the configuration or restart nginx.
 
-_To dynamically “unload” a module, comment out or remove its load_module directive and reload the nginx configuration.
+\_To dynamically “unload” a module, comment out or remove its load_module directive and reload the nginx configuration.

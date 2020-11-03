@@ -10,6 +10,7 @@ draft: false
 if you face the above error when trying to install NPM packages on a IPv6 only connection, add the following to the hosts file.
 
 > ⚠️Please do this only If you know what you are doing! This IP can change at any moment.
+
 ```
 2606:4700::6810:1123 registry.npmjs.org
 ```

@@ -1,5 +1,5 @@
 ---
-title: Using IPv6 to serve github pages on custom domains 
+title: Using IPv6 to serve github pages on custom domains
 date: "2019-04-23T23:00"
 description: "Using IPv6 to serve github pages on custom domains "
 draft: false

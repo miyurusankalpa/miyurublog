@@ -24,4 +24,4 @@ To enable IPv6 in PHP, add use dualstack option to the array:
    'region' => 'eu-west-1',
 +    'use_dual_stack_endpoint' => true
  ]);
- ```
+```
