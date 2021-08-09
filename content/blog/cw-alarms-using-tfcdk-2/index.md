@@ -2,10 +2,10 @@
 title: Creating CloudWatch Alarms using Terraform CDK (Part 2)
 date: "2021-08-01T19:11Z"
 description: "Creating CloudWatch Alarms using Terraform CDK "
-draft: true
+draft: false
 ---
 
-> 💉 Find the part 1 of the article here. https://blog.miyuru.lk/cw-alarms-using-tfcdk-1/
+> 💉 Find part 1 of the article here. https://blog.miyuru.lk/cw-alarms-using-tfcdk-1/
 
 In this post, let's spice things up using loops and boto3.
 
@@ -36,7 +36,7 @@ for threshold_values in thresholds:
 ```
 This code will create 4 alarms that will trigger at 4 trigger points. If you need to add more trigger points its easy as adding value to the array.
 
-Now if you want to create an alarm for instances for autoscale group or using tags, we can use boto3 to get the data.
+Now if you want to create an alarm for instances in an autoscale group or using tags, we can use boto3 to get the data.
 ```python
 #!/usr/bin/env python
 from constructs import Construct
@@ -77,7 +77,7 @@ for res in response['Reservations']:
 
             CloudwatchMetricAlarm(self, "Alarm"+alarm_name, ...)
 ```
-This code will call the autoscaling API and get the instance IDs and create alarms for each instance with different thresholds.
+This code will call the autoscaling API, get the instance IDs and create alarms for each instance with different thresholds.
 
 Here is the completed code.
 ```python
@@ -152,7 +152,7 @@ To delete the test alarms, run
 cdktf destroy
 ```
 
-The documentation and the stackoverflow answers for Terraform CDK is non existent at the moment, so if an error occurs, it might be hard to track now down.
+The documentation and stackoverflow answers for Terraform CDK is non existent at the moment. So if an error occurs, it might be hard to track it down. Search the github issues if you encounter problem. https://github.com/hashicorp/terraform-cdk/issues
 
  From this post, you can see how Terraform CDK can help you easily manage terraform code. 
  

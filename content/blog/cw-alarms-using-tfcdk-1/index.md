@@ -2,7 +2,7 @@
 title: Creating CloudWatch Alarms using Terraform CDK (Part 1)
 date: "2021-07-25T19:11Z"
 description: "Introduction to Creating CloudWatch Alarms using Terraform CDK"
-draft: true
+draft: false
 ---
 
 In this post I am going to show how to use Terraform CDK to create and manage cloudwatch alarms.
@@ -75,4 +75,4 @@ cdktf destroy
 
 In the next post, let's look at how to create multiple alarms easily and dynamically.
 
-> 💉 Find the part 2 of the article here. https://blog.miyuru.lk/cw-alarms-using-tfcdk-2/
+> 💉 Find part 2 of the article here. https://blog.miyuru.lk/cw-alarms-using-tfcdk-2/
