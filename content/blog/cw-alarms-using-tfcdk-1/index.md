@@ -1,7 +1,7 @@
 ---
-title: Creating CloudWatch Alarms using TerraformCDK (Part 1)
+title: Creating CloudWatch Alarms using Terraform CDK (Part 1)
 date: "2021-07-25T19:11Z"
-description: "Introduction to Creating CloudWatch Alarms using TerraformCDK"
+description: "Introduction to Creating CloudWatch Alarms using Terraform CDK"
 draft: true
 ---
 

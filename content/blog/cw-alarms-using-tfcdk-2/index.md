@@ -1,7 +1,7 @@
 ---
-title: Creating CloudWatch Alarms using TerraformCDK (Part 2)
-date: "2021-07-25T19:11Z"
-description: "Creating CloudWatch Alarms using TerraformCDK "
+title: Creating CloudWatch Alarms using Terraform CDK (Part 2)
+date: "2021-08-01T19:11Z"
+description: "Creating CloudWatch Alarms using Terraform CDK "
 draft: true
 ---
 
@@ -111,7 +111,7 @@ class MyStack(TerraformStack):
 
     AwsProvider(self, 'Aws', region=region, profile=profile)
 
-    response = ec2.describe_instances(Filters=[{'Name': 'instance-state-name', 'Values': ['running']},{'Name': 'tag:aws:autoscaling:groupName', 'Values': [asg_group_name]}])
+    response = ec2.describe_instances(Filters=[{'Name': 'tag:aws:autoscaling:groupName', 'Values': [asg_group_name]},{'Name': 'instance-state-name', 'Values': ['running']}])
 
     for res in response['Reservations']:
       for ins in res['Instances']:
@@ -133,6 +133,7 @@ MyStack(app, "cdkalarms")
 
 app.synth()
 ```
+
 > 👉 Remember to create an auto scaling group and change the variables accordingly.
 
 To deploy the it, run
@@ -151,7 +152,7 @@ To delete the test alarms, run
 cdktf destroy
 ```
 
-The documentation and the stackoverflow answers for CDK is non existent at the moment, so if an error occurs, it might be hard to track now down.
+The documentation and the stackoverflow answers for Terraform CDK is non existent at the moment, so if an error occurs, it might be hard to track now down.
 
- From this post, you can see how TerraformCDK can help you easily manage terraform code. 
+ From this post, you can see how Terraform CDK can help you easily manage terraform code. 
  
