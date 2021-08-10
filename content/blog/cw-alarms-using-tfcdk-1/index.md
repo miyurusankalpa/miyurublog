@@ -5,7 +5,7 @@ description: "Introduction to Creating CloudWatch Alarms using Terraform CDK"
 draft: false
 ---
 
-In this post I am going to show how to use Terraform CDK to create and manage cloudwatch alarms.
+In this post, I will show how to use Terraform CDK to create and manage cloudwatch alarms.
 
 There are multiple benefits of using cdktf instead of plain terraform files.
 
