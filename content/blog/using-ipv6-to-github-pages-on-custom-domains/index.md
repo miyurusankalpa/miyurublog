@@ -1,9 +1,21 @@
 ---
 title: Using IPv6 to serve github pages on custom domains
-date: "2019-04-23T23:00"
-description: "Using IPv6 to serve github pages on custom domains "
+date: "2021-08-14T23:00"
+description: "Using IPv6 to serve github pages on custom domains"
 draft: false
 ---
+
+New IPv4 and IPv6 address for Github Pages are as below. **SSL are working on these IPv6 addresses.**
+
+```
+185.199.108.153  - >  2606:50c0:8000::153
+185.199.109.153  - >  2606:50c0:8000::153
+185.199.110.153  - >  2606:50c0:8002::153
+185.199.111.153  - >  2606:50c0:8003::153
+```
+=============================================
+
+*2019-04-23 - Original Post*
 
 Even though currently github pages does not support IPv6, their CDN fastly does.
 
