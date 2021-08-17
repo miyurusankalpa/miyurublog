@@ -17,8 +17,9 @@ To do this I tried several methods.
 * dd copy or manually creating the file system and copying the files failed with file system error on boot.
 * Creating a raw image manually.
 
-Unfortunately it is not easy to do, only way I found that worked was creating image using fai. Even then there are configurations to be created.
-Fortunately the debian team shares the code they used create the debain AMI images on their git repo.
+Unfortunately it is not easy to do, only way I found that worked was creating image using fai. Even then, there are configurations that needs to be created.
+
+Fortunately the debian team uses fai to create the aws images and shares the code they use to create them on their git repo. https://salsa.debian.org/zmarano-guest/debian-cloud-images/-/tree/master
 
 First setup a instance with debian buster AMI, make sure to use x64 one.
 
@@ -56,7 +57,7 @@ resource "aws_volume_attachment" "ebs_attach_ami_vol" {
   instance_id = aws_spot_instance_request.fai_server.spot_instance_id
 }
 
-data "aws_ami" "debian_buser" {
+data "aws_ami" "debian_buster" {
   most_recent = true
   owners      = ["136693071363"]
 
