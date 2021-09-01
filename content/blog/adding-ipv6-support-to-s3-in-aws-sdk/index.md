@@ -15,7 +15,7 @@ aws configure set default.s3.use_dualstack_endpoint true
 
 This will enable S3 dual stack endpoints in the CLI.
 
-To enable IPv6 in PHP, add use dualstack option to the array:
+To enable IPv6 in PHP, add use dualstack endpoint option to the array:
 
 ```{diff}
  // Enable dualstack endpoint
@@ -24,4 +24,13 @@ To enable IPv6 in PHP, add use dualstack option to the array:
    'region' => 'eu-west-1',
 +    'use_dual_stack_endpoint' => true
  ]);
+```
+
+To enable IPv6 in Javascript, add use dualstack option to the array:
+
+```{diff}
+ // Enable dualstack endpoint
+var bucket = new AWS.S3({
++  useDualstack : true,
+})
 ```
