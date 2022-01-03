@@ -1,7 +1,7 @@
 ---
-title: Enabling IPv6 on Maven and Java
+title: Enabling IPv6 on Java and Maven
 date: "2021-11-29T22:49z"
-description: "Enabling IPv6 on Maven and Java"
+description: "How to enable IPv6 support on Java and Maven"
 draft: false
 ---
 

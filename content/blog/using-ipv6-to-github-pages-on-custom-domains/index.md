@@ -1,7 +1,7 @@
 ---
 title: Using IPv6 to serve github pages on custom domains
 date: "2021-08-14T23:00"
-description: "Using IPv6 to serve github pages on custom domains"
+description: "Adding IPv6 support to github pages on custom domains"
 draft: false
 ---
 
