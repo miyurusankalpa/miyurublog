@@ -5,7 +5,7 @@ description: "Setup a dual stacked VPN with global IPv6 support"
 draft: false
 ---
 
-WireGuard is becoming popular with the linux people as a VPN as its integrated with the linux kernel provides better performance.
+WireGuard is becoming popular with the linux crowd as a VPN as its integrated with the linux kernel whitch provides better performance.
 
 However lot of tutorials and scripts that setup wireguard do so with NATing the IPv6 address and giving the user a link local IPv6 address. This causes the operating system to prefer IPv4 over IPv6. In this tutorial we will look at setting up a simple dual stacked vpn tunnel with global IPv6 support.
 
@@ -17,12 +17,13 @@ For this tutorial I will be only focusing on IPv6 network configuration.
 
 You will need a subnet with /80 for this tutorial, However you can use smaller subnets with proper subnetting.
 
-> ⚠️Please substitute your own subnet and network interfaces when following the tutorial.
+> ⚠️ Please substitute your own subnet and network interfaces when following the tutorial.
 
 **Original Block - 2a05:d014:926:ffaa:87dd::/80**
 * For the SSH - 2a05:d014:926:ffaa:87dd::1/128
 * For the VPN Endpoint - 2a05:d014:926:ffaa:87dd::123/128
 * For the VPN Clients - 2a05:d014:926:ffaa:87dd:ffff::/80
+* VPN Endpoint port - 60002
 * AWS network interface - ens5
 
 We are also giving a single IPv6 for each client but you can also give a subnet per client.
@@ -49,9 +50,9 @@ Run following command to apply the changes.
 sudo sysctl --system
 ```
 
-# Installing Wireguard
+# Installing WireGuard
 
-To install wireguard use the package manager of the system or follow the [quickstart](https://www.wireguard.com/install/
+To install WireGuard use the package manager of the system or follow the [quickstart](https://www.wireguard.com/install/
 ).
 
 ```
@@ -61,19 +62,19 @@ sudo apt install wireguard
 # Server WG0 Configuration
 
 
-In the IPv4 rules are we NATing the IP
+In the IPv4 rules, we NATing the IPv4 address.
 ```
 PostUp =  iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; 
 PostDown = iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE;
 ```
 
-In the IPv6 rules we are adding a rule to forward traffic to the internet interface.
+In the IPv6 rules, we are adding a rule to forward traffic to the internet interface.
 ```
 PostUp = ip6tables -A FORWARD -i ens5 -o wg0 -j ACCEPT; ip6tables -A FORWARD -i wg0 -j ACCEPT;
 PostDown = ip6tables -D FORWARD -i ens5 -o wg0 -j ACCEPT; ip6tables -D FORWARD -i wg0 -j ACCEPT;
 ```
 
-For the client IP we are adding the first IPs of the designated range. In IPv6 you can allow a large subnet here and it will allow the client to move around within different IPs of the subnet.
+For the client IP we are using the first IPs of the designated range. In IPv6 you can allow a large subnet here and it will allow the client to move around within different IPs of the subnet.
 ```
 AllowedIPs = 10.66.66.2, 2a05:d014:926:ffaa:87dd:ffff::2/128
 ```
