@@ -3,11 +3,12 @@ module.exports = {
     title: `Miyuru Tech Blog`,
     author: {
       name: `Miyuru`,
-      summary: ``,
+      summary: `DevOps Engineer. #IPv6 advocate.`,
     },
     description: `Miyurus Tech Blog.`,
     siteUrl: `https://blog.miyuru.lk/`,
     social: {
+      mastodon: `https://ipv6.social/@miyuru`,
       twitter: `miyurusankalpa`,
       linkedin: `miyurusankalpa`,
     },
