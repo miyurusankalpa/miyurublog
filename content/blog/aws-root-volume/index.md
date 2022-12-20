@@ -130,4 +130,4 @@ sudo partx --show /dev/nvme1n1
 Now create a snapshot and register a AMI from the 1GB volume. 
 Launch a instance from the AMI and see if it works.
 
-If anyone knows a better way, feel free to contact me at [twitter](https://twitter.com/miyurulk)
+Update 2022: you can also use alpinelinux AMI image which is also 1GB in size.  https://alpinelinux.org/cloud/
