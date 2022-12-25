@@ -17,7 +17,6 @@ Here *IPv6 only* means,
 ## Free
  
 * euserv* - VS2-free(LXC) - 1 shared vCPU, 1GB RAM, 10GB HDD
-* AWS - t4g.small - 2 shared vCPU, 2GB RAM (till December 2023)
 
 ## Not Free
 
@@ -27,10 +26,9 @@ Here *IPv6 only* means,
 * Signaltransmitter* - IPv6 **LXC** X-Small - 1 shared vCPU, 512MB RAM, 20GB SSD - ~$1
 * Signaltransmitter* - IPv6 **KVM** X-Small - 1 shared vCPU, 512MB RAM, 20GB SSD - ~$2.50
 * Vultr* - Regular - 1 shared vCPU, 512MB RAM, 10GB SSD - ~$2.50
-* AWS - t4g.nano - 2 shared vCPU, 512MB RAM - ~$3.07
 * Hetzner - CX11 - 1 shared vCPU, 2GB RAM, 20GB SSD - ~$4
   
-### Honourable mentions
+### Honourable Mentions
  
 Following 2 providers were not in the original list due to providing Free NAT64, but due the immense support those 2 providers give to the IPv6 community, I will add them mention below.
 
@@ -38,6 +36,9 @@ Following 2 providers were not in the original list due to providing Free NAT64,
 * mythic-beasts* -  VPS 1 - 1 shared vCPU, 1GB RAM, 5GB SSD - ~$5.91
  
 Note: * Means I have not tried the providers.
+
+Otherwise linked, all offers are Google searchable.
+
 <hr>
  
 If there are any hosts that I missed let me know on Mastodon.
