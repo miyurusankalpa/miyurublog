@@ -22,10 +22,20 @@ Here *IPv6 only* means,
 
 * Scaleway - Stardust - 1 shared vCPU, 1GB RAM, 10GB SSD - ~$0.40
 * server-factory.com - KVM-IPV6-1 VPS - 1 shared vCPU, 1GB RAM, 10GB SSD - ~$0.50
+* 1NEXTNET - Starter - 1 shared vCPU, 512MB RAM, 10GB SSD - ~$0.50
+* hosmatic - VPS-N116 - 1 shared vCPU, 512MB RAM, 10GB SSD - ~$0.53
+* hosteons - IPv6 512 - 1 shared vCPU, 512MB RAM, 10GB SSD - ~$0.75
+* HyperExpert - MVPS1 - 1 shared vCPU, 512MB RAM, 5GB HDD - ~$0.99
 * PCextreme* - standard - 1 shared vCPU, 1GB RAM, 25GB SSD - ~$1
+* cinfu - EX0FR - 1 shared vCPU, 256MB RAM, 20GB HDD - ~$1.05
+* justhost.ru - 1 shared vCPU, 512MB RAM, 5GB SSD - ~$1.77
 * Signaltransmitter* - IPv6 **LXC** X-Small - 1 shared vCPU, 512MB RAM, 20GB SSD - ~$1
+* limitlesshost - KVM IPv6 ONLY - 1 shared vCPU, 512MB RAM, 5GB SSD - ~$2
+* hostsailor - Mini Sailor KVM IPv6 - 1 shared vCPU, 256MB RAM, 10GB HDD - ~$2
+* web.arena.ne.jp - 1 shared vCPU, 768MB RAM, 20GB HDD - ~$2.24
 * Signaltransmitter* - IPv6 **KVM** X-Small - 1 shared vCPU, 512MB RAM, 20GB SSD - ~$2.50
 * Vultr* - Regular - 1 shared vCPU, 512MB RAM, 10GB SSD - ~$2.50
+* hostiko.com.ua - DE-0 - 1 shared vCPU, 1GB RAM, 20GB SSD - ~$3.20
 * Hetzner - CX11 - 1 shared vCPU, 2GB RAM, 20GB SSD - ~$4
   
 ### Honourable Mentions
