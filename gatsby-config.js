@@ -64,7 +64,7 @@ module.exports = {
       resolve: "gatsby-plugin-matomo",
       options: {
         siteId: "3",
-        matomoUrl: "//matomo.miyuru.lk",
+        matomoUrl: "//mat-mo.miyuru.lk",
         siteUrl: "https://blog.miyuru.lk",
         matomoPhpScript: "Jeff.php",
         matomoJsScript: "Jeff.php",
