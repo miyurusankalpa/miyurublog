@@ -1,9 +1,11 @@
 ---
-title: AWS 1GB AMI
+title: AWS 1GB Debian AMI
 date: "2021-01-01T23:11Z"
-description: "How to create AWS AMI with 1GB Root Volume"
+description: "How to create AWS Debian Buster AMI with 1GB Root Volume"
 draft: false
 ---
+
+> Update 2022: You can also use alpinelinux AMI image which is also 1GB in size.  https://alpinelinux.org/cloud/
 
 Linux AMIs from AWS are typically are 8GB in size. This leaves around 80% disk space unused if there are not much software is installed and if the data is another volume. 
 
@@ -129,5 +131,3 @@ sudo partx --show /dev/nvme1n1
 
 Now create a snapshot and register a AMI from the 1GB volume. 
 Launch a instance from the AMI and see if it works.
-
-Update 2022: you can also use alpinelinux AMI image which is also 1GB in size.  https://alpinelinux.org/cloud/
