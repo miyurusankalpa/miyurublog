@@ -19,6 +19,7 @@ module.exports = {
       options: {
         path: `${__dirname}/content/blog`,
         name: `blog`,
+        fastHash: true,
       },
     },
     {
@@ -26,6 +27,7 @@ module.exports = {
       options: {
         path: `${__dirname}/content/assets`,
         name: `assets`,
+        fastHash: true,
       },
     },
     {
