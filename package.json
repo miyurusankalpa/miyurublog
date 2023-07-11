@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "babel-loader": "^8.1.0",
-    "gatsby": "^5.5.0",
+    "gatsby": "^5.9.1",
     "gatsby-image": "^2.4.21",
     "gatsby-plugin-draft": "^0.1.0",
     "gatsby-plugin-feed": "^2.5.14",
