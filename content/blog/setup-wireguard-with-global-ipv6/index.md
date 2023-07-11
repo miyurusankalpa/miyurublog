@@ -22,7 +22,7 @@ You will need a subnet with /80 for this tutorial, However you can use smaller s
 **Original Block - 2a05:d014:926:ffaa:87dd::/80**
 * For the SSH - 2a05:d014:926:ffaa:87dd::1/128
 * For the VPN Endpoint - 2a05:d014:926:ffaa:87dd::123/128
-* For the VPN Clients - 2a05:d014:926:ffaa:87dd:ffff::/80
+* For the VPN Clients - 2a05:d014:926:ffaa:87dd:ffff::/96
 * VPN Endpoint port - 60002
 * AWS network interface - ens5
 
@@ -33,7 +33,7 @@ Run the following commands to add the ips to the interface
 ```
 sudo ip addr add 2a05:d014:926:ffaa:87dd::1/128 dev ens5
 sudo ip addr add 2a05:d014:926:ffaa:87dd::123/128 dev ens5
-sudo ip addr add 2a05:d014:926:ffaa:87dd:ffff::/80 dev ens5
+sudo ip addr add 2a05:d014:926:ffaa:87dd:ffff::/96 dev ens5
 ```
 
 > ⚠️ You can also use tools like netplan to properly setup the IPs.
