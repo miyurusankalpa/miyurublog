@@ -60,7 +60,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-draft`,
+   // `gatsby-plugin-draft`,
     `gatsby-plugin-sitemap`,
     {
       resolve: "gatsby-plugin-matomo",
