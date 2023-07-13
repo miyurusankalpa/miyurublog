@@ -1,7 +1,7 @@
 ---
 title: Using Route53 to load balance autoscaling groups
 date: "2023-07-11T18:21z"
-description: "To save costs, I used DNS load balancing for an AWS project. It worked well for long-running instances, but not for auto-scaling groups. I extended my DNS solution to run a Python script in AWS Lambda that updates DNS when an instance state changes. I also used Cloudwatch events to monitor the instance's lifecycle actions. The solution worked perfectly and kept costs low."
+description: "Using Route53 to create a DDNS service with Lambda for autoscaling groups"
 draft: false
 ---
 
