@@ -1,7 +1,7 @@
 ---
 title: Using Route53 to load balance autoscaling groups
 date: "2023-07-11T18:21z"
-description: "Using Route53 to create a DDNS service with Lambda for autoscaling groups"
+description: "Using Route53 to create a DDNS service with Lambda for autoscaling groups without a LB"
 draft: false
 ---
 
@@ -9,7 +9,7 @@ A few years back I worked on a project on AWS with some friends and we needed to
 
 For most of us, the quick solution to this problem is to stick an ALB in front, but I decided to extend my DNS solution even further.
 
-My solution was to run a Python script in AWS Lambda which updates the DNS in Route53 when an instance state changes in the autoscaling group. (Similar to dynamic DNS services).  It turns out it is really easy to get the IPv4 address of instances of the auto scaling groups. Getting the IPv6 address turned out to be a bit of work, but it was easy to do if there is only one IPv6 per instance. Also a thing to note is to keep the TTL lower to limit the chances of clients hitting an expired IP address.
+My solution was to run a Python script in AWS Lambda which updates the DNS in Route53 when an instance state changes in the autoscaling group. (Similar to dynamic DNS services). It is really easy to get the public IPv4 address of the instances from the auto scaling groups. Getting the IPv6 address turned out to be a bit of work, but it was easy to do if there is only one IPv6 address per instance. Also a thing to note is to keep the TTL lower to limit the chances of clients hitting an expired IP address.
 
 ```python
 import boto3
@@ -68,7 +68,7 @@ def lambda_handler(event, context):
                       'ResourceRecords': ipv4
                   }
               },
-        {
+              {
                   'Action': 'UPSERT',
                   'ResourceRecordSet': {
                       'Name': domain,
@@ -84,8 +84,7 @@ def lambda_handler(event, context):
   print(response)  
 ```
 
-For triggering the Lambda, I used Cloudwatch events to monitor the instance's lifecycle actions.
-
+For triggering the Lambda, I used Cloudwatch events to monitor the instance's lifecycle actions. Below is the AWS SAM template for the Lambda function. 
 
 ```yml
 AWSTemplateFormatVersion: '2010-09-09'
@@ -114,4 +113,4 @@ Resources:
                 - aws.autoscaling
 ```
 
-In the end,the solution worked perfectly and it also kept the cost low.
+In the end, the solution worked perfectly and it also kept the cost low.
