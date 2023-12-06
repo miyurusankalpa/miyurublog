@@ -7,7 +7,9 @@ draft: false
 
 As IPv6 only servers are becoming the norm, lots of users run into the problem of pulling docker images from docker hub.
 
-The default endpoint does not have IPv6 enabled, but they have another endpoint `registry.ipv6.docker.com` which is dual stacked.
+> ⚠️ As of August 2023 docker hub supports IPv6 https://www.docker.com/blog/docker-hub-registry-ipv6-support-now-generally-available/ the following sentence have been updated to reflect that.
+
+The default endpoint is dual stacked, but they have another endpoint `registry.ipv6.docker.com` which is IPv6 only.
 
 So instead of using
 `docker pull busybox`
