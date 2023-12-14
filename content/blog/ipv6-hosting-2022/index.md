@@ -40,7 +40,7 @@ Here *IPv6 only* means,
   
 ### Honourable Mentions
  
-Following 2 providers were not in the original list due to providing Free NAT64, but due the immense support those 2 providers give to the IPv6 community, I am adding them below.
+Following 2 providers were not in the original list due to providing Free NAT64(IPv4 mostly), but due the immense support those 2 providers give to the IPv6 community, I am adding them below.
 
 * ipv6onlyhosting.com* - 1 shared vCPU, 1GB RAM, 10GB SSD - ~$3.75
 * mythic-beasts* -  VPS 1 - 1 shared vCPU, 1GB RAM, 5GB SSD - ~$5.91
