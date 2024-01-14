@@ -11,11 +11,12 @@ Here *IPv6 only* means,
  - Native IPv6.
  - No NAT IPv4 or NAT64.
  - Removing IPv4 or NAT64 should reduce cost.
- 
+
 # IPv6 Only Provider List
- 
+
 ## Free
- 
+
+* server-factory.com - KVM-IPV6-XXS VPS - 1 shared vCPU, 2GB RAM, 50GB SSD (24 hours) - [aff link](https://my.server-factory.com/?affid=148)
 * euserv* - VS2-free(LXC) - 1 shared vCPU, 1GB RAM, 10GB HDD
 
 ## Not Free
@@ -37,14 +38,14 @@ Here *IPv6 only* means,
 * Vultr* - Regular - 1 shared vCPU, 512MB RAM, 10GB SSD - ~$2.5
 * hostiko.com.ua* - DE-0 - 1 shared vCPU, 1GB RAM, 20GB SSD - ~$3.2
 * Hetzner - CX11 - 1 shared vCPU, 2GB RAM, 20GB SSD - ~$4
-  
+
 ### Honourable Mentions
- 
+
 Following 2 providers were not in the original list due to providing Free NAT64(IPv4 mostly), but due the immense support those 2 providers give to the IPv6 community, I am adding them below.
 
 * ipv6onlyhosting.com* - 1 shared vCPU, 1GB RAM, 10GB SSD - ~$3.75
 * mythic-beasts* -  VPS 1 - 1 shared vCPU, 1GB RAM, 5GB SSD - ~$5.91
- 
+
 Note: * Means I have not tried the providers.
 
 Otherwise linked, all offers are Google searchable. Prices are monthly.
