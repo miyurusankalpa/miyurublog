@@ -5,8 +5,6 @@ description: "Speeding Up Your Network with Google BBR which is a congestion con
 draft: false
 ---
 
-# Speeding Up Your Network with Google BBR
-
 Google's BBR (Bottleneck Bandwidth and Round-trip propagation time) is a congestion control algorithm that can significantly improve network performance. In this post, I'll guide you through enabling BBR on your Linux system to boost network speeds.
 
 ## What is BBR?
