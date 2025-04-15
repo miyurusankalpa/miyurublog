@@ -68,17 +68,16 @@ Based on the tests conducted, here's a summary table of registry IPv6 support an
 
 | Registry | Docker Endpoint | Blob Endpoint | Overall IPv6 Support | Recommendation |
 |----------|----------------|---------------|---------------------|----------------|
-| Docker Hub (docker.io) | ✅ | ✅ | Full | Highly Recommended |
-| Red Hat Quay (quay.io) | ✅ | ✅ | Full | Highly Recommended |
-| Google Artifact Registry (gcr.io) | ✅ | ✅ | Full | Highly Recommended |
-| Microsoft Container Registry (mcr.microsoft.com) | ✅ | ✅ | Full | Recommended |
-| Kubernetes Registry (registry.k8s.io) | ✅ | ✅ | Full | Recommended |
-| GitHub Container Registry (ghcr.io) | ❌ | ✅ | Partial | Recommend to use with NAT64 |
-| AWS Public ECR (public.ecr.aws) | ❌ | ✅ | Partial | Recommend to use with NAT64 |
-| Scaleway Docker Registry (rg.nl-ams.scw.cloud) | ❌ | ✅ | Partial | Recommend to use with NAT64 |
-| Alibaba Cloud Registry (registry.cn-hangzhou.aliyuncs.com) | ❌ | ❌ | Partial | Not recommended |
-| GitLab Container Registry (registry.gitlab.com) | ❌ | ❌ | None | Not recommended |
-
+| Docker Hub | ✅ | ✅ | Full | Highly Recommended |
+| Red Hat Quay | ✅ | ✅ | Full | Highly Recommended |
+| Google Artifact Registry | ✅ | ✅ | Full | Highly Recommended |
+| Microsoft Container Registry | ✅ | ✅ | Full | Recommended |
+| Kubernetes Registry | ✅ | ✅ | Full | Recommended |
+| GitHub Container Registry | ❌ | ✅ | Partial | Recommend to use with NAT64 |
+| AWS Public ECR | ❌ | ✅ | Partial | Recommend to use with NAT64 |
+| Scaleway Docker Registry | ❌ | ✅ | Partial | Recommend to use with NAT64 |
+| Alibaba Cloud Registry | ❌ | ❌ | None | Not recommended |
+| GitLab Container Registry | ❌ | ❌ | None | Not recommended |
 
 For IPv6-only or IPv6-first environments, I recommend using registries with full IPv6 support such as Docker Hub, Red Hat Quay and Google Artifact Registry.
 
