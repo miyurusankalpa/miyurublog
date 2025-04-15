@@ -7,11 +7,11 @@ draft: false
 
 [Back in 2021, I checked for IPv6 support in public registries in the Docker Hub IPv6 support thread](https://github.com/docker/roadmap/issues/89#issuecomment-772644009). Since Docker Hub now has IPv6 support, I wanted to see how other registries have fared.
 
-> **Note:** The registry domains referenced here might change in the future. For a full domain list and upto date infomation on IPv6 support, please refer to the [v6monitor list](https://v6monitor.com/list/view/cf170dba3/#).
+> **⚠️ Note:** The registry domains referenced here might change in the future. For a full domain list and upto date infomation on IPv6 support, please refer to the [v6monitor list](https://v6monitor.com/list/view/cf170dba3/).
 
-## Docker Endpoint Check Results
+## Results
 
-Below are the tests I conducted using various registry domains. For each registry, I recorded the Docker endpoint result and used tcpdump to get the auth/blob domain.
+Below are the tests I conducted using various registry domains. For each registry, I recorded the Docker endpoint result and used tcpdump to get the auth/blob domain. The registry endpoint is in **bold**.
 
 ### Docker Hub: Fully supports IPv6
 - **docker.io (registry-1.docker.io)**: **PASS**
@@ -24,7 +24,7 @@ Below are the tests I conducted using various registry domains. For each registr
 - cdn02.quay.io: PASS
 
 ### GitHub Container Registry: Only blob endpoint supports IPv6
-- **ghcr.io**: **FAI**L
+- **ghcr.io**: **FAIL**
 - pkg-containers.githubusercontent.com: PASS
 
 ### GitLab Container Registry: No IPv6 support
@@ -55,14 +55,14 @@ Below are the tests I conducted using various registry domains. For each registr
 - **registry.k8s.io**: **PASS**
 - prod-registry-k8s-io-ap-south-1.s3.dualstack.ap-south-1.amazonaws.com: SPASS
 
-> Note: Blob endpoint seems to use different provider S3 buckets based on regions. For my region, it has IPv6 support.
+> ⚠️ Note: Blob endpoint seems to use different provider S3 buckets based on regions. For my region, it has IPv6 support.
 
 ## Redirect Domains
 
 - **registry.access.redhat.com**: Domain supports IPv6. Then it redirects to Red Hat Quay.
 - **lscr.io**: Domain does not support IPv6. Then it redirects to GitHub Container Registry.
 
-## Summary Table and Recommendations
+## Summary and Recommendations
 
 Based on the tests conducted, here's a summary table of registry IPv6 support and recommendations for environments where IPv6 is crucial:
 
