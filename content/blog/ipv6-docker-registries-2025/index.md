@@ -53,7 +53,7 @@ Below are the tests I conducted using various registry domains. For each registr
 
 ### Kubernetes Registry: Supports IPv6
 - **registry.k8s.io**: **PASS**
-- prod-registry-k8s-io-ap-south-1.s3.dualstack.ap-south-1.amazonaws.com: SPASS
+- prod-registry-k8s-io-ap-south-1.s3.dualstack.ap-south-1.amazonaws.com: PASS
 
 > ⚠️ Note: Blob endpoint seems to use different provider S3 buckets based on regions. For my region, it has IPv6 support.
 
