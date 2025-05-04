@@ -60,7 +60,7 @@ Below are the tests I conducted using various registry domains. For each registr
 - **registry.k8s.io**: **PASS ✅**
 - prod-registry-k8s-io-ap-south-1.s3.dualstack.ap-south-1.amazonaws.com: PASS ✅
 
-> ⚠️ Note: Blob endpoint seems to use different provider S3 buckets based on regions. For my region, it has IPv6 support.
+> ⚠️ Note: Blob endpoint seems to use different provider S3 buckets based on regions. For my region, it has IPv6 support. You can find the complete bucket list [here](https://github.com/kubernetes/registry.k8s.io/blob/main/cmd/archeio/internal/app/buckets.go).
 
 ## Redirect Domains
 
