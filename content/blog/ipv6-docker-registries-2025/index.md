@@ -16,49 +16,49 @@ Below are the tests I conducted using various registry domains. For each registr
 ## Public Container Registries
 
 ### Docker Hub: Fully supports IPv6
-- **docker.io (registry-1.docker.io)**: **PASS**
-- docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com: PASS
-- production.cloudflare.docker.com: PASS
+- **docker.io (registry-1.docker.io)**: **PASS ✅**
+- docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com: PASS ✅
+- production.cloudflare.docker.com: PASS ✅
 
 ### Red Hat Quay: Fully supports IPv6
-- **quay.io**: **PASS**
-- cdn01.quay.io: PASS
-- cdn02.quay.io: PASS
+- **quay.io**: **PASS ✅**
+- cdn01.quay.io: PASS ✅
+- cdn02.quay.io: PASS ✅
 
 ### GitHub Container Registry: Only blob endpoint supports IPv6
-- **ghcr.io**: **FAIL**
-- pkg-containers.githubusercontent.com: PASS
+- **ghcr.io**: **FAIL ❌**
+- pkg-containers.githubusercontent.com: PASS ✅
 
 ### GitLab Container Registry: No IPv6 support
-- **registry.gitlab.com**: **FAIL**
-- cdn.registry.gitlab-static.net: FAIL
+- **registry.gitlab.com**: **FAIL ❌**
+- cdn.registry.gitlab-static.net: FAIL ❌
 
 ### AWS Public ECR: Default endpoint does not have IPv6
-- **public.ecr.aws**: **FAIL**
-- **ecr-public.aws.com**: **PASS**
-- d5l0dvt14r5h8.cloudfront.net: PASS
+- **public.ecr.aws**: **FAIL ❌**
+- **ecr-public.aws.com**: **PASS ✅**
+- d5l0dvt14r5h8.cloudfront.net: PASS ✅
 
 ### Scaleway Docker Registry: Only blob domain supports IPv6
-- **rg.nl-ams.scw.cloud**: **FAIL**
-- api.scaleway.com: FAIL
-- s3.nl-ams.scw.cloud: PASS
+- **rg.nl-ams.scw.cloud**: **FAIL ❌**
+- api.scaleway.com: FAIL ❌
+- s3.nl-ams.scw.cloud: PASS ✅
 
 ### Google Artifact Registry: Fully supports IPv6
-- **gcr.io**: **PASS**
+- **gcr.io**: **PASS ✅**
 
 ### Alibaba Cloud Registry: Only auth domain supports IPv6
-- **registry.cn-hangzhou.aliyuncs.com**: **FAIL**
-- dockerauth.cn-hangzhou.aliyuncs.com: PASS
-- aliregistry.oss-cn-hangzhou.aliyuncs.com: FAIL
+- **registry.cn-hangzhou.aliyuncs.com**: **FAIL ❌**
+- dockerauth.cn-hangzhou.aliyuncs.com: PASS ✅
+- aliregistry.oss-cn-hangzhou.aliyuncs.com: FAIL ❌
 
 ## Public Offical Container Registries
 
 ### Microsoft Container Registry: Fully supports IPv6
-- **mcr.microsoft.com**: **PASS**
+- **mcr.microsoft.com**: **PASS ✅**
 
 ### Kubernetes Registry: Supports IPv6
-- **registry.k8s.io**: **PASS**
-- prod-registry-k8s-io-ap-south-1.s3.dualstack.ap-south-1.amazonaws.com: PASS
+- **registry.k8s.io**: **PASS ✅**
+- prod-registry-k8s-io-ap-south-1.s3.dualstack.ap-south-1.amazonaws.com: PASS ✅
 
 > ⚠️ Note: Blob endpoint seems to use different provider S3 buckets based on regions. For my region, it has IPv6 support.
 
