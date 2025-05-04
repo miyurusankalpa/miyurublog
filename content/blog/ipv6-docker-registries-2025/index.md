@@ -33,8 +33,9 @@ Below are the tests I conducted using various registry domains. For each registr
 - **registry.gitlab.com**: **FAIL**
 - cdn.registry.gitlab-static.net: FAIL
 
-### AWS Public ECR: Only blob domain supports IPv6
+### AWS Public ECR: Default endpoint does not have IPv6
 - **public.ecr.aws**: **FAIL**
+- **ecr-public.aws.com**: **PASS**
 - d5l0dvt14r5h8.cloudfront.net: PASS
 
 ### Scaleway Docker Registry: Only blob domain supports IPv6
@@ -77,8 +78,8 @@ Based on the tests conducted, here's a summary table of registry IPv6 support an
 | Google Artifact Registry | ✅ | ✅ | Full | Recommended |
 | Microsoft Container Registry | ✅ | ✅ | Full | Recommended |
 | Kubernetes Registry | ✅ | ✅ | Full | Recommended |
+| AWS Public ECR | 🚧 | ✅ | Almost there | Need to use a seperate endpoint |
 | GitHub Container Registry | ❌ | ✅ | Partial | Recommend to use with NAT64 |
-| AWS Public ECR | ❌ | ✅ | Partial | Recommend to use with NAT64 |
 | Scaleway Docker Registry | ❌ | ✅ | Partial | Recommend to use with NAT64 |
 | Alibaba Cloud Registry | ❌ | ❌ | None | Not recommended |
 | GitLab Container Registry | ❌ | ❌ | None | Not recommended |
