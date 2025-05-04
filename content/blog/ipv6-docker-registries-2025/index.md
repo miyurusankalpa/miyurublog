@@ -13,6 +13,8 @@ draft: false
 
 Below are the tests I conducted using various registry domains. For each registry, I recorded the Docker endpoint result and used tcpdump to get the auth/blob domain. The registry endpoint is in **bold**.
 
+## Public Container Registries
+
 ### Docker Hub: Fully supports IPv6
 - **docker.io (registry-1.docker.io)**: **PASS**
 - docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com: PASS
@@ -48,6 +50,8 @@ Below are the tests I conducted using various registry domains. For each registr
 - dockerauth.cn-hangzhou.aliyuncs.com: PASS
 - aliregistry.oss-cn-hangzhou.aliyuncs.com: FAIL
 
+## Public Offical Container Registries
+
 ### Microsoft Container Registry: Fully supports IPv6
 - **mcr.microsoft.com**: **PASS**
 
@@ -68,9 +72,9 @@ Based on the tests conducted, here's a summary table of registry IPv6 support an
 
 | Registry | Docker Endpoint | Blob Endpoint | Overall IPv6 Support | Recommendation |
 |----------|----------------|---------------|---------------------|----------------|
-| Docker Hub | ✅ | ✅ | Full | Highly Recommended |
-| Red Hat Quay | ✅ | ✅ | Full | Highly Recommended |
-| Google Artifact Registry | ✅ | ✅ | Full | Highly Recommended |
+| Docker Hub | ✅ | ✅ | Full | Recommended |
+| Red Hat Quay | ✅ | ✅ | Full | Recommended |
+| Google Artifact Registry | ✅ | ✅ | Full | Recommended |
 | Microsoft Container Registry | ✅ | ✅ | Full | Recommended |
 | Kubernetes Registry | ✅ | ✅ | Full | Recommended |
 | GitHub Container Registry | ❌ | ✅ | Partial | Recommend to use with NAT64 |
