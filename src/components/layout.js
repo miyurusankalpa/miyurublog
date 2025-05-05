@@ -27,10 +27,20 @@ const Layout = ({ location, title, children }) => {
       <footer>
         © {new Date().getFullYear()}, Built with
         {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+        <a href="https://www.gatsbyjs.com" rel="nofollow">Gatsby</a>
       </footer>
     </div>
   )
+}
+
+export const onRenderBody = ({ setHeadComponents }) => {
+  setHeadComponents([
+    <meta 
+      key="fediverse-creator" 
+      name="fediverse:creator" 
+      content="@miyuru@ipv6.social" 
+    />
+  ])
 }
 
 export default Layout
