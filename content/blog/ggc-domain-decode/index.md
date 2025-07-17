@@ -1,7 +1,7 @@
 ---
 title: GGC Domain Decoding
 date: "2025-07-17T12:53Z"
-description: "Google Global Cache Domain Decode Using Caesar Cipher"
+description: "Google Global Cache Domain Decode Using Substitution Cipher"
 draft: false
 ---
 
@@ -11,7 +11,7 @@ I use [IPvFoo](https://addons.mozilla.org/en-US/firefox/addon/ipvfoo/) to check 
 
 So I did some digging for more these domains and found this [repo](https://github.com/skyoo/googlevideo_subdomains).
 
-Looking at the repo and PTR records of the IPs, it looked like that these domains are encoded using a simple [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher). The domains are structured like `r[num]---sn-[encodedid].googlevideo.com`.
+Looking at the repo and PTR records of the IPs, it looked like that these domains are encoded using a simple [Substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher). The domains are structured like `r[num]---sn-[encodedid].googlevideo.com`.
 
 So with a little bit of Python, I got the cipher maps for the domains.
 
