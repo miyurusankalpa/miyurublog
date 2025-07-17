@@ -11,7 +11,7 @@ I use [IPvFoo](https://addons.mozilla.org/en-US/firefox/addon/ipvfoo/) to check 
 
 So I did some digging for more these domains and found this [repo](https://github.com/skyoo/googlevideo_subdomains).
 
-Looking at the repo and ptr records of the domains, it looked like that these domains are encoded using a simple [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher). The domains are structured like `r[num]---sn-[encodedid].googlevideo.com`.
+Looking at the repo and PTR records of the IPs, it looked like that these domains are encoded using a simple [Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher). The domains are structured like `r[num]---sn-[encodedid].googlevideo.com`.
 
 So with a little bit of Python, I got the cipher maps for the domains.
 
@@ -57,4 +57,4 @@ So with a little bit of Python, I got the cipher maps for the domains.
 
 I created the liitle html page to decode this in the browser, you can view it https://miyuru.lk/ggcdomaindecorder
 
-Looks like encoded bits are mostly ISP ID and the server ID in google systems. Why they thought to encode this info is still a mystery to me.
+Looks like encoded bits are mostly ISP ID and the server ID in google systems. Why they thought to encode this info is still a mystery.
