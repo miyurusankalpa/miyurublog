@@ -1,5 +1,5 @@
 ---
-title: Speeding Up Your Network with Google BBR
+title: Speed Up Your Network with Google BBR
 date: "2025-02-28T19:27Z"
 description: "Speeding Up Your Network with Google BBR which is a congestion control algorithm that can significantly improve network performance"
 draft: false
