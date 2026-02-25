@@ -71,3 +71,4 @@ One of the way to fix it is the router should use static values and implement th
 
 I have reached to the ISP to fix this issue. Will update this post when they fix it.
 
+Update: The ISP did not fix the issue; however, I managed to solve it myself. I am still testing the stability of this solution, so I will write a new blog post in the next few days. I will update this post with the link. please check back in a few days.
