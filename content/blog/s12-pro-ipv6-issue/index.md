@@ -27,12 +27,12 @@ Reachable time            :  unspecified (0x00000000)
 Retransmit time           :  unspecified (0x00000000)
  Source link-layer address: 98:A9:42:9C:68:21
  MTU                      :         1500 bytes (valid)
- Prefix                   : 2402:d000:a400:xxxx::/64
+ Prefix                   : 2001:db8::a400:xxxx::/64
   On-link                 :          Yes
   Autonomous address conf.:          Yes
   Valid time              :          191 (0x000000bf) seconds
   Pref. time              :           71 (0x00000047) seconds
- Recursive DNS server     : 2402:d000:a400:xxxx:xxxx:xxxx:xxxx:xxxx
+ Recursive DNS server     : 2001:db8::a400:xxxx:xxxx:xxxx:xxxx:xxxx
   DNS server lifetime     :          189 (0x000000bd) seconds
  from fe80::9aa9:42ff:fe9c:6821
 ```
@@ -71,4 +71,7 @@ One of the way to fix it is the router should use static values and implement th
 
 I have reached to the ISP to fix this issue. Will update this post when they fix it.
 
-Update: The ISP did not fix the issue; however, I managed to solve it myself. I am still testing the stability of this solution, so I will write a new blog post in the next few days. I will update this post with the link. please check back in a few days.
+> **Update:** The ISP did not fix the issue; however, I managed to solve it myself.
+>
+> 👉 **New Post:** https://blog.miyuru.lk/zlt-ipv6-fixes/
+
