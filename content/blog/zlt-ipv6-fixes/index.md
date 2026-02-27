@@ -18,33 +18,7 @@ That didn't help, so I decided to take matters into my own hands after watching 
 
 ## Prerequisites: Get Telnet Access
 
-You need to enable telnet on the router. The exact method may vary, but a quick search for your model should provide instructions. Once telnet is available, log in and verify the OS:
-
-```bash
-telnet 192.168.1.1 23
-```
-
-```bash
-/ # cat /etc/os-release
-NAME="OpenWrt"
-VERSION="SNAPSHOT"
-ID="openwrt"
-ID_LIKE="lede openwrt"
-PRETTY_NAME="OpenWrt SNAPSHOT"
-VERSION_ID="snapshot"
-HOME_URL="https://openwrt.org/"
-BUG_URL="https://bugs.openwrt.org/"
-SUPPORT_URL="https://forum.openwrt.org/"
-BUILD_ID="r14739+1-ea24ffd"
-OPENWRT_BOARD="ramips/mt7621"
-OPENWRT_ARCH="mipsel_24kc"
-OPENWRT_TAINTS="no-all busybox"
-OPENWRT_DEVICE_MANUFACTURER="OpenWrt"
-OPENWRT_DEVICE_MANUFACTURER_URL="https://openwrt.org/"
-OPENWRT_DEVICE_PRODUCT="Generic"
-OPENWRT_DEVICE_REVISION="v0"
-OPENWRT_RELEASE="OpenWrt SNAPSHOT r14739+1-ea24ffd"
-```
+You need to enable telnet on the router. The exact method may vary, but a quick search for your model should provide instructions.
 
 **Hint:** You can find the steps for the S12 Pro model at the bottom of this article.
 
@@ -305,7 +279,7 @@ All script changes made are permanent and survive a reboot. Reset will revert on
 
 ## Conclusion
 
-After applying these changes, the router became much more stable, and IPv6 now works as intended on all devices. Most of the problems stem from the fact that there is no proper DHCP‑PD for end devices, and ISPs are still trying to apply legacy v4 practices to IPv6. Hopefully, this situation will improve in the future.
+After applying these changes, the router became much more stable, and IPv6 now works as intended on all devices. Most of the problems stem from the fact that there is no proper DHCP‑PD for end devices, and [ISPs are still trying to apply legacy v4 practices to IPv6](https://blog.miyuru.lk/server-provider-deploy-ipv6-correctly/). Hopefully, this situation will improve in the future.
 
 ## Resources
 
