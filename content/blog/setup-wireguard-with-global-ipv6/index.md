@@ -11,7 +11,7 @@ However lot of tutorials and scripts that setup wireguard do so with NATing the 
 
 I will be using a t4g.nano server in aws eu-central-1 with Debian bullseye and use add a single /80 ipv6 subnet for the instance. Some of the steps will be different for your setup.
 
-# Network Setup
+## Network Setup
 
 For this tutorial I will be only focusing on IPv6 network configuration.
 
@@ -19,10 +19,10 @@ You will need a subnet with /80 for this tutorial, However you can use smaller s
 
 > ⚠️ Please substitute your own subnet and network interfaces when following the tutorial.
 
-**Original Block - 2a05:d014:926:ffaa:87dd::/80**
-* For the SSH - 2a05:d014:926:ffaa:87dd::1/128
-* For the VPN Endpoint - 2a05:d014:926:ffaa:87dd::123/128
-* For the VPN Clients - 2a05:d014:926:ffaa:87dd:ffff::/96
+**Original Block - 2001:db8::ffaa:87dd::/80**
+* For the SSH - 2001:db8::ffaa:87dd::1/128
+* For the VPN Endpoint - 2001:db8::ffaa:87dd::123/128
+* For the VPN Clients - 2001:db8::ffaa:87dd:ffff::/96
 * VPN Endpoint port - 60002
 * AWS network interface - ens5
 
@@ -31,9 +31,9 @@ For a truly proper IPv6 config you can give each client a /64 subnet and configu
 
 Run the following commands to add the ips to the interface
 ```
-sudo ip addr add 2a05:d014:926:ffaa:87dd::1/128 dev ens5
-sudo ip addr add 2a05:d014:926:ffaa:87dd::123/128 dev ens5
-sudo ip addr add 2a05:d014:926:ffaa:87dd:ffff::/96 dev ens5
+sudo ip addr add 2001:db8::ffaa:87dd::1/128 dev ens5
+sudo ip addr add 2001:db8::ffaa:87dd::123/128 dev ens5
+sudo ip addr add 2001:db8::ffaa:87dd:ffff::/96 dev ens5
 ```
 
 > ⚠️ You can also use tools like netplan to properly setup the IPs.
@@ -50,7 +50,7 @@ Run following command to apply the changes.
 sudo sysctl --system
 ```
 
-# Installing WireGuard
+## Installing WireGuard
 
 To install WireGuard use the package manager of the system or follow the [quickstart](https://www.wireguard.com/install/
 ).
@@ -59,7 +59,7 @@ To install WireGuard use the package manager of the system or follow the [quicks
 sudo apt install wireguard
 ```
 
-# Server WG0 Configuration
+## Server WG0 Configuration
 
 
 In the IPv4 rules, we NATing the IPv4 address.
@@ -76,7 +76,7 @@ PostDown = ip6tables -D FORWARD -i ens5 -o wg0 -j ACCEPT; ip6tables -D FORWARD -
 
 For the client IP we are using the first IPs of the designated range. In IPv6 you can allow a large subnet here and it will allow the client to move around within different IPs of the subnet.
 ```
-AllowedIPs = 10.66.66.2, 2a05:d014:926:ffaa:87dd:ffff::2/128
+AllowedIPs = 10.66.66.2, 2001:db8::ffaa:87dd:ffff::2/128
 ```
 
 Below is the full config. Save the file in `/etc/wireguard/wg0.conf`
@@ -88,36 +88,36 @@ PrivateKey =
 PostUp =  iptables -t nat -A POSTROUTING -o ens5 -j MASQUERADE; ip6tables -A FORWARD -i ens5 -o wg0 -j ACCEPT; ip6tables -A FORWARD -i wg0 -j ACCEPT;
 PostDown = iptables -t nat -D POSTROUTING -o ens5 -j MASQUERADE; ip6tables -D FORWARD -i ens5 -o wg0 -j ACCEPT; ip6tables -D FORWARD -i wg0 -j ACCEPT;
 
-### Client 1
+#### Client 1
 [Peer]
 PublicKey =
 #PresharedKey =
-AllowedIPs = 10.66.66.2, 2a05:d014:926:ffaa:87dd:ffff::2/128
+AllowedIPs = 10.66.66.2, 2001:db8::ffaa:87dd:ffff::2/128
 ```
 To start the tunnel run the following command
 ```
 sudo wg-quick up wg0
 ```
 
-# Client Configuration
+## Client Configuration
 
 Here we are allowing a single IPv6 address. If the server config is allowing a large subnet, we can change it accordingly.
 ```
-Address = 10.66.66.2, 2a05:d014:926:ffaa:87dd:ffff::2/128
+Address = 10.66.66.2, 2001:db8::ffaa:87dd:ffff::2/128
 ```
 
 Below is the full config. Save the file in `/etc/wireguard/client1.conf`
 ```
 [Interface]
 PrivateKey =
-Address = 10.66.66.2, 2a05:d014:926:ffaa:87dd:ffff::2/128
+Address = 10.66.66.2, 2001:db8::ffaa:87dd:ffff::2/128
 DNS =  2606:4700:4700::1001
 
 [Peer]
 PublicKey =
 #PresharedKey =
 AllowedIPs = 0.0.0.0/0, ::/0
-Endpoint = [2a05:d014:926:ffaa:87dd::123]:60002
+Endpoint = [2001:db8::ffaa:87dd::123]:60002
 ```
 
 To start the tunnel run the following command in linux.
@@ -125,7 +125,7 @@ To start the tunnel run the following command in linux.
 sudo wg-quick up wg0
 ```
 
-# Testing
+## Testing
 
 After setting up the VPN you can test the connetion by going to test-ipv6.com
 
