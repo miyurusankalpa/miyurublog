@@ -305,9 +305,10 @@ Most of the problems stem from the fact that there is no proper DHCP‑PD for en
 > **❗ Always make a copy of the original files before applying any modifications, and compare the differences to understand the changes.**
 
 - Modified scripts for ZLT S12 Pro:
-  - `newdhcpv6.sh` (link)
-  - `newwand.sh` (link)
-  - `howtotelnet.txt` (link)
+    - [`new_dhcpv6.sh`](new_dhcpv6.sh)
+    - [`new_wand.sh`](new_wand.sh)
+    - [`new_firewall.sh`](new_firewall.sh)
+    - [`how_to_telnet.txt`](how_to_telnet.txt)
 
 ---
 
