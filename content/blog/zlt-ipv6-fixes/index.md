@@ -154,7 +154,14 @@ num   pkts bytes target     prot opt in     out     source               destina
 1      112 51586 MASQUERADE  all      *      usb0    ::/0                 ::/0   
 ```
 
-The masquerade rule was added by a script at `/usr/lib/lua/tz/firewall.sh` via var with a comment *"fix temporary broken ipv6"*. This is the relevant section:
+The masquerade rule was added by a script at `/usr/lib/lua/tz/firewall.sh` with a comment, that explains the whole situation clearly. 
+
+```bash
+# temporary fix for broken IPv6 function
+ipv6_masq=1
+```
+
+This is the relevant section that uses the var:
 
 ```bash
 if [ $main_apn_nat -eq 1 ]; then
