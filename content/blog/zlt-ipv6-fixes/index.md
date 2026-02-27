@@ -7,7 +7,8 @@ draft: true
 
 ## Introduction
 
-As mentioned in the [previous post](https://blog.miyuru.lk/s12-pro-ipv6-issue/), I reached out to the ISP to solve the issues, but only got feedback: *"The necessary corrections will be made by the technical team."*  
+As mentioned in the [previous post](https://blog.miyuru.lk/s12-pro-ipv6-issue/), I reached out to the ISP to solve the issues, but only got feedback: *"The necessary corrections will be made by the technical team."* 
+
 That didn't help, so I decided to take matters into my own hands after watching a YouTube video on gaining telnet access to the router.
 
 > 📝 **Note:** I am using a ZLT S12 Pro router, and I have seen the same issues on the ZLT X25 PRO 5G. Most ZTE routers likely still use the same broken scripts.
@@ -20,13 +21,16 @@ That didn't help, so I decided to take matters into my own hands after watching 
 
 You need to enable telnet on the router. The exact method may vary, but a quick search for your model should provide instructions.
 
-**Hint:** You can find the steps for the S12 Pro model at the bottom of this article.
+**Hint:** You can find the steps for the S12 Pro model [here](#resources).
 
 ---
 
 ## Fix 1: Adjust IPv6 Router Lifetime
 
-The first issue was that IPv6 router advertisements (RA) had too short a lifetime, causing clients to drop their IPv6 addresses frequently. Fix it by increasing `ra_lifetime` and enabling `ra_useleasetime`:
+The first issue was that IPv6 router advertisements (RA) had too short a lifetime, causing clients to drop their IPv6 addresses frequently. 
+
+We can fix it by increasing `ra_lifetime` and enabling `ra_useleasetime`:
+
 
 ```bash
 uci set dhcp.lan.ra_lifetime='1800'
@@ -43,11 +47,11 @@ You can verify the change with `rdisc6`. After the fix, the RA output router lif
 
 ## Fix 2: DHCPv6 Script Improvements
 
-The main IPv6 problems stem from a broken DHCPv6 script. It mishandles preferred and valid lifetimes and unnecessarily removes all global IPv6 addresses on each run.
+The main IPv6 problems of this router seem to stem from a broken DHCPv6 script. 
 
 ### 2.1 Fixing Preferred and Valid Lifetimes
 
-The router tries to implement a custom version of [RFC 7278](https://datatracker.ietf.org/doc/html/rfc7278). From testing, the valid and preferred lifetimes are taken from the IPv6 prefix assigned to the `br-lan` interface. The script at `/lib/netifd/dhcpv6.script` contains these problematic lines:
+The router tries to implement a custom version of [RFC 7278](https://datatracker.ietf.org/doc/html/rfc7278). From my testing, the valid and preferred lifetimes are taken from the IPv6 prefix assigned to the `br-lan` interface. The script at `/lib/netifd/dhcpv6.script` contains these problematic lines:
 
 **Always take a backup before making changes:**
 
@@ -63,7 +67,7 @@ addr_valid=$(echo $ADDRESSES | cut -d ',' -f 3)
 ip addr add ${addr}/$mask dev br-${lan_section} preferred_lft $addr_pref valid_lft $addr_valid
 ```
 
-The script caps the preferred lifetime at 240 seconds and the valid lifetime at 300 seconds, which is far too short. To solve this, we can simply remove those lines and let the router use the default values (86400 seconds). Alternatively, set static high values.
+The script caps the preferred lifetime at 240 seconds and the valid lifetime at 300 seconds, which is far too short and create the decreasing values probem, snce it seem to think this is a link.
 
 **Fix:** Comment out or delete those lines, and use a simpler `ip addr add` without explicit lifetimes.
 
@@ -103,9 +107,9 @@ done
 ```
 
 It removes **all** global IPv6 addresses every time the script runs, which is why IPv6 disconnected from time to time. 
-The better way is to remove addresses that differ from the new one being added.
+The better way is to check and remove addresses that differ from the new one being added.
 
-I replaced that block with a new function:
+I replaced that block with a new function so that we can fix the both issues in one go:
 
 ```bash
 # Function to update IPv6 address on bridge interface
@@ -128,7 +132,7 @@ update_ipv6_address() {
 }
 ```
 
-**Hint:** You can find the complete modified script for the S12 Pro model at the bottom of this article.
+**Hint:** You can find the complete modified script for the S12 Pro model at the bottom of this [article](#resources).
 
 Replace the old deletion+addition code with a call to this function. After updating the script, IPv6 addresses persist correctly.
 
@@ -193,7 +197,7 @@ During debugging, I noticed the router's load average was constantly around 1. A
 
 The log file `/tmp/logs/wand.log` had grown huge. This logging comes from the script `/bin/wand`. The original script continuously appends to the log and also checks its size for rotation, using `wc -c` which reads the entire file each time—expensive on a large file.
 
-**Fix:** Comment out all logging and log‑rotation lines. Here’s the modified portion of the script:
+**Fix:** Comment out all logging and log‑rotation lines. Here’s the diff of the modified portion of the script with comments:
 
 **Backup first:**
 
@@ -273,7 +277,7 @@ cp /bin/wand /bin/wand.bak
 +done # Removed: >>$log_file 2>&1 (log redirection commented out)
 ```
 
-**Hint:** The complete modified `wand` script for the S12 Pro is available at the bottom of this article.
+**Hint:** The complete modified `wand` script for the S12 Pro is available at the bottom of this [article](#resources).
 
 After editing the file, restart the service:
 
@@ -292,7 +296,9 @@ All script changes made are permanent and survive a reboot. Reset will revert on
 
 ## Conclusion
 
-After applying these changes, the router became much more stable, and IPv6 now works as intended on all devices. Most of the problems stem from the fact that there is no proper DHCP‑PD for end devices, and [ISPs are still trying to apply legacy v4 practices to IPv6](https://blog.miyuru.lk/server-provider-deploy-ipv6-correctly/). Hopefully, this situation will improve in the future.
+After applying these changes, the router became much more stable, and IPv6 now works as intended on all devices. 
+
+Most of the problems stem from the fact that there is no proper DHCP‑PD for end devices, and [ISPs are still trying to apply legacy v4 practices to IPv6](https://blog.miyuru.lk/server-provider-deploy-ipv6-correctly/). Hopefully, this situation will improve in the future.
 
 ## Resources
 
@@ -303,5 +309,8 @@ After applying these changes, the router became much more stable, and IPv6 now w
   - `newwand.sh` (link)
   - `howtotelnet.txt` (link)
 
-This took 2 days of research and testing. If you found this helpful, consider supporting me via [here](https://donate.stripe.com/00wdR98qH1vR41yfxKbfO01). Please add a note about this blog post so I know it’s from here.
+---
 
+This project took 2 days of research and testing. If you found this helpful, consider supporting me via [here](https://donate.stripe.com/00wdR98qH1vR41yfxKbfO01). 
+
+Please add a note about this blog post so I know it’s from here.
