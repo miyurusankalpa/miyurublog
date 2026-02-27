@@ -318,6 +318,60 @@ a:focus {
   font-family: var(--font-heading);
 }
 
+.blog-post-toc {
+  margin-bottom: var(--spacing-10);
+  padding: var(--spacing-6);
+  border: 1px solid var(--color-accent);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.blog-post-toc h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-4);
+  font-size: var(--fontSize-3);
+}
+
+.blog-post-toc ul {
+  margin-bottom: 0;
+  margin-left: 0;
+  list-style: none;
+}
+
+.blog-post-toc li {
+  margin-bottom: var(--spacing-2);
+}
+
+.blog-post-toc .toc-level-3 {
+  margin-left: var(--spacing-4);
+}
+
+.blog-post-toc .toc-level-4,
+.blog-post-toc .toc-level-5,
+.blog-post-toc .toc-level-6 {
+  margin-left: var(--spacing-8);
+}
+
+.blog-post h2 .heading-anchor,
+.blog-post h3 .heading-anchor,
+.blog-post h4 .heading-anchor,
+.blog-post h5 .heading-anchor,
+.blog-post h6 .heading-anchor {
+  margin-left: var(--spacing-2);
+  text-decoration: none;
+  opacity: 0.4;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.blog-post h2:hover .heading-anchor,
+.blog-post h3:hover .heading-anchor,
+.blog-post h4:hover .heading-anchor,
+.blog-post h5:hover .heading-anchor,
+.blog-post h6:hover .heading-anchor,
+.blog-post .heading-anchor:focus {
+  opacity: 1;
+}
+
 .blog-post-nav ul {
   margin: var(--spacing-0);
 }
