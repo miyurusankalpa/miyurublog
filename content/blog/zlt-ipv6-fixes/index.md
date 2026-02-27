@@ -201,63 +201,76 @@ The log file `/tmp/logs/wand.log` had grown huge. This logging comes from the sc
 cp /bin/wand /bin/wand.bak
 ```
 
-```bash
-# Initial startup log - COMMENTED OUT
-# echo "wand started at[$(cat /proc/uptime | cut -d ' ' -f 1)], pid[$$]" >>$log_file
-
-while true; do
-        # Write current process ID to PID file for tracking
-        echo $$ >$pid_file
-        
-        # Update last active timestamp (system uptime in seconds)
-        cat /proc/uptime | awk -F '.' '{print $1}' >/tmp/.wand/last_active
-        
-        # Debug output - COMMENTED OUT
-        # set -x
-        # cat /proc/uptime
-        
-        # Create timeout task if tick counter exceeds check interval
-        if [ $tick -gt $check_interval ]; then
-                touch $task_dir/timeout
-        fi
-        
-        # Process all pending tasks in task directory
-        while true; do
-                no_task=1
-                for i in $(ls $task_dir 2>/dev/null); do
-                        # Remove task file and execute failover
-                        rm -rf $task_dir/$i
-                        run_wan_failover
-                        
-                        # Reset tick counter after task execution
-                        tick=0
-                        no_task=0
-                        break
-                done
-                # Exit loop if no tasks found
-                [ $no_task -eq 1 ] && break
-        done
-        
-        # Monitor DNS resolver configuration
-        watch_resolv
-        
-        # Increment tick counter and wait
-        tick=$(($tick + $tick_step))
-        sleep $tick_step
-        
-        # Debug output end - COMMENTED OUT
-        # set +x
-        
-        # Log rotation logic - COMMENTED OUT (not needed without logging)
-        # log_size=$(wc -c $log_file 2>/dev/null | awk '{print $1}')
-        # [ -z "$log_size" ] && log_size=0
-        # if [ $log_size -gt $log_max_size ]; then
-        #         rm -f $pid_file
-        #         gzip -kf $log_file
-        #         >$log_file
-        # fi
-        
-done # Removed: >>$log_file 2>&1 (log redirection commented out)
+```diff
+-echo "wand started at[$(cat /proc/uptime | cut -d ' ' -f 1)], pid[$$]" >>$log_file
++# Initial startup log - COMMENTED OUT
++# echo "wand started at[$(cat /proc/uptime | cut -d ' ' -f 1)], pid[$$]" >>$log_file
++
+ while true; do
++        # Write current process ID to PID file for tracking
+         echo $$ >$pid_file
++        
++        # Update last active timestamp (system uptime in seconds)
+         cat /proc/uptime | awk -F '.' '{print $1}' >/tmp/.wand/last_active
+-        set -x
+-        cat /proc/uptime
++        
++        # Debug output - COMMENTED OUT
++        # set -x
++        # cat /proc/uptime
++        
++        # Create timeout task if tick counter exceeds check interval
+         if [ $tick -gt $check_interval ]; then
+                 touch $task_dir/timeout
+         fi
++        
++        # Process all pending tasks in task directory
+         while true; do
+                 no_task=1
+-                for i in $(ls $task_dir); do
++                for i in $(ls $task_dir 2>/dev/null); do
++                        # Remove task file and execute failover
+                         rm -rf $task_dir/$i
+                         run_wan_failover
++                        
++                        # Reset tick counter after task execution
+                         tick=0
+                         no_task=0
+                         break
+                 done
++                # Exit loop if no tasks found
+                 [ $no_task -eq 1 ] && break
+         done
++        
++        # Monitor DNS resolver configuration
+         watch_resolv
++        
++        # Increment tick counter and wait
+         tick=$(($tick + $tick_step))
+         sleep $tick_step
+-        set +x
+-        log_size=$(wc -c $log_file | awk '{print $1}')
+-        [ -z "$log_size" ] && log_size=0
+-        if [ $log_size -gt $log_max_size ]; then
+-                rm -f $pid_file
+-                gzip -kf $log_file
+-                >$log_file
+-        fi
+-done >>$log_file 2>&1
++        
++        # Debug output end - COMMENTED OUT
++        # set +x
++        
++        # Log rotation logic - COMMENTED OUT (not needed without logging)
++        # log_size=$(wc -c $log_file 2>/dev/null | awk '{print $1}')
++        # [ -z "$log_size" ] && log_size=0
++        # if [ $log_size -gt $log_max_size ]; then
++        #         rm -f $pid_file
++        #         gzip -kf $log_file
++        #         >$log_file
++        # fi
++        
++done # Removed: >>$log_file 2>&1 (log redirection commented out)
 ```
 
 **Hint:** The complete modified `wand` script for the S12 Pro is available at the bottom of this article.
