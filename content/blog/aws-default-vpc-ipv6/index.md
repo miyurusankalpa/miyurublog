@@ -13,32 +13,70 @@ In this blog post, we will show you how to use a simple bash script to enable IP
 ```bash
 #!/bin/bash
 
-vpc_id=$(aws ec2 describe-vpcs --filters Name=isDefault,Values=true --query 'Vpcs[0].VpcId' --output text)
+# Get the default VPC ID
+vpc_id=$(aws ec2 describe-vpcs \
+  --filters Name=isDefault,Values=true \
+  --query 'Vpcs[0].VpcId' \
+  --output text)
 
-aws ec2 associate-vpc-cidr-block --vpc-id $vpc_id --amazon-provided-ipv6-cidr-block
+# Associate an Amazon-provided IPv6 CIDR block with the default VPC
+aws ec2 associate-vpc-cidr-block \
+  --vpc-id $vpc_id \
+  --amazon-provided-ipv6-cidr-block
 
-vpc_ipv6_cidr=$(aws ec2 describe-vpcs --vpc-ids $vpc_id --query 'Vpcs[0].Ipv6CidrBlockAssociationSet[0].Ipv6CidrBlock' --output text)
+# Retrieve the assigned IPv6 CIDR block for the VPC
+vpc_ipv6_cidr=$(aws ec2 describe-vpcs \
+  --vpc-ids $vpc_id \
+  --query 'Vpcs[0].Ipv6CidrBlockAssociationSet[0].Ipv6CidrBlock' \
+  --output text)
 
-subnets=$(aws ec2 describe-subnets --filters Name=vpc-id,Values=$vpc_id --query 'Subnets[*].[SubnetId,AvailabilityZone]' --output json)
+# Get all subnets in the VPC (returns array of [SubnetId, AvailabilityZone])
+subnets=$(aws ec2 describe-subnets \
+  --filters Name=vpc-id,Values=$vpc_id \
+  --query 'Subnets[*].[SubnetId,AvailabilityZone]' \
+  --output json)
 
+# Count total subnets
 subnet_count=$(echo $subnets | jq length)
 
 # Loop subnets
-for i in $( seq 1 $subnet_count )
-do
-    subnet_id=$(echo $subnets | jq -r .[$i][0])
-    subnet_az=$(echo $subnets | jq -r .[$i][1])
+for i in $(seq 0 $((subnet_count - 1))); do
 
-    aws ec2 associate-subnet-cidr-block --subnet-id $subnet_id --ipv6-cidr-block ${vpc_ipv6_cidr::-7}${subnet_az: -2}::/64
-    sleep 1
-    aws ec2 modify-subnet-attribute --subnet-id $subnet_id --assign-ipv6-address-on-creation
+  # Extract subnet ID and availability zone for current index
+  subnet_id=$(echo $subnets | jq -r .[$i][0])
+  subnet_az=$(echo $subnets | jq -r .[$i][1])
+
+  # Assign a /64 IPv6 CIDR to the subnet based on its AZ suffix (e.g. "1a" → "1a::/64")
+  aws ec2 associate-subnet-cidr-block \
+    --subnet-id $subnet_id \
+    --ipv6-cidr-block ${vpc_ipv6_cidr::-7}${subnet_az: -2}::/64
+
+  sleep 1
+
+  # Enable automatic IPv6 address assignment for instances launched in this subnet
+  aws ec2 modify-subnet-attribute \
+    --subnet-id $subnet_id \
+    --assign-ipv6-address-on-creation
+
 done
 
-route_table_id=$(aws ec2 describe-route-tables --filters Name=vpc-id,Values=$vpc_id --query 'RouteTables[0].RouteTableId' --output text)
+# Get the main route table for the VPC
+route_table_id=$(aws ec2 describe-route-tables \
+  --filters Name=vpc-id,Values=$vpc_id \
+  --query 'RouteTables[0].RouteTableId' \
+  --output text)
 
-gateway_id=$(aws ec2 describe-internet-gateways --filters Name=attachment.vpc-id,Values=$vpc_id --query 'InternetGateways[0].InternetGatewayId' --output text)
+# Get the Internet Gateway attached to the VPC
+gateway_id=$(aws ec2 describe-internet-gateways \
+  --filters Name=attachment.vpc-id,Values=$vpc_id \
+  --query 'InternetGateways[0].InternetGatewayId' \
+  --output text)
 
-aws ec2 create-route --route-table-id $route_table_id --destination-ipv6-cidr-block ::/0 --gateway-id $gateway_id
+# Add a default IPv6 route (::/0) pointing to the Internet Gateway
+aws ec2 create-route \
+  --route-table-id $route_table_id \
+  --destination-ipv6-cidr-block ::/0 \
+  --gateway-id $gateway_id
 ```
 
 ## Explanation
