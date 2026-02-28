@@ -27,12 +27,12 @@ Reachable time            :  unspecified (0x00000000)
 Retransmit time           :  unspecified (0x00000000)
  Source link-layer address: 98:A9:42:9C:68:21
  MTU                      :         1500 bytes (valid)
- Prefix                   : 2001:db8::a400:xxxx::/64
+ Prefix                   : 2001:db8:a400:xxxx::/64
   On-link                 :          Yes
   Autonomous address conf.:          Yes
   Valid time              :          191 (0x000000bf) seconds
   Pref. time              :           71 (0x00000047) seconds
- Recursive DNS server     : 2001:db8::a400:xxxx:xxxx:xxxx:xxxx:xxxx
+ Recursive DNS server     : 2001:db8:a400:xxxx:xxxx:xxxx:xxxx:xxxx
   DNS server lifetime     :          189 (0x000000bd) seconds
  from fe80::9aa9:42ff:fe9c:6821
 ```
