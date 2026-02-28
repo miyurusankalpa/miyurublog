@@ -2,7 +2,7 @@
 title: Fixing IPv6 and Performance Issues on ZLT S12 Pro Router (OpenWrt)
 date: "2026-02-26T18:17Z"
 description: "I repaired the ZLT S12 Pro’s buggy OpenWrt firmware via telnet after ISP support fell short. By patching DHCPv6 scripts and killing a runaway logging process, I achieved stable IPv6 connectivity and lower system load."
-draft: true
+draft: false
 ---
 
 ## Introduction
