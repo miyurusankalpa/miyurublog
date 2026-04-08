@@ -20,14 +20,16 @@ const Layout = ({ location, title, children }) => {
     )
   }
 
-  return (
+return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
       <header className="global-header">{header}</header>
       <main>{children}</main>
       <footer>
-        © {new Date().getFullYear()}, Built with
+        © {new Date().getFullYear()}
         {` `}
-        <a href="https://www.gatsbyjs.com" rel="nofollow">Gatsby</a>
+        <a href="https://v6monitor.com" target="_blank" rel="noopener noreferrer">
+          Check out v6monitor for IPv6 uptime check
+        </a>
       </footer>
     </div>
   )
@@ -35,10 +37,10 @@ const Layout = ({ location, title, children }) => {
 
 export const onRenderBody = ({ setHeadComponents }) => {
   setHeadComponents([
-    <meta 
-      key="fediverse-creator" 
-      name="fediverse:creator" 
-      content="@miyuru@ipv6.social" 
+    <meta
+      key="fediverse-creator"
+      name="fediverse:creator"
+      content="@miyuru@ipv6.social"
     />
   ])
 }
