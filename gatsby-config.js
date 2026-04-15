@@ -114,7 +114,7 @@ module.exports = {
                     excerpt
                     html
                     fields { slug }
-                    frontmatter { title date }
+                    frontmatter { title date updated }
                   }
                 }
               }

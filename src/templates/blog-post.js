@@ -63,7 +63,15 @@ const BlogPostTemplate = ({ data, location }) => {
       >
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
+          <p>
+            {post.frontmatter.date}
+            {post.frontmatter.updated && (
+              <>
+                {` `}
+                | Updated {post.frontmatter.updated}
+              </>
+            )}
+          </p>
         </header>
         {headings.length > 0 && (
           <aside className="blog-post-toc">
@@ -138,6 +146,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
+        updated(formatString: "MMMM DD, YYYY")
         description
       }
     }
