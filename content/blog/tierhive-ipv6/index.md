@@ -37,7 +37,7 @@ network:
   ethernets:
     ens3:
       addresses:
-        - "$TH_IPV6/128"
+        - "$TH_IPV6/64"
       nameservers:
         addresses:
           - 2606:4700:4700::1111
