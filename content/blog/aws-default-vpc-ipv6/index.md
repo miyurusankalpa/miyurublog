@@ -1,6 +1,7 @@
 ---
 title: Enabling IPv6 in Default VPC in AWS
 date: "2023-11-25T16:04z"
+updated: "2026-05-19T12:57z"
 description: "Enabling IPv6 in Default VPC in AWS using bash"
 draft: false
 ---
@@ -10,6 +11,9 @@ IPv6 is the latest version of the Internet Protocol, which provides a larger add
 In this blog post, we will show you how to use a simple bash script to enable IPv6 support in the default VPC and subnets.
 
 ## Script
+
+> ℹ️ This script only enables IPv6 in the region of the CloudShell you run it in. To target a specific region or all regions in your account, see the [multi-region script](#multi-region-script) below.
+
 ```bash
 #!/bin/bash
 
@@ -100,6 +104,36 @@ Make it executable: `chmod +x aws_ipv6_vpc.sh`.
 Run the script: `./aws_ipv6_vpc.sh`.
 
 Check your AWS console to verify that the subnets have IPv6 address.
+
+## Multi-Region Script
+
+The script above runs against a single region. To enable IPv6 in the default VPC of a specific region — or every region enabled on your account — use the multi-region version of the script.
+
+[Download `aws_ipv6_vpc_multi.sh`](./aws_ipv6_vpc_multi.sh)
+
+It runs the same VPC, subnet, route table, and Internet Gateway steps as the single-region script, but wraps them in a loop over the chosen regions.
+
+### Usage
+
+Open CloudShell in any region (the script passes `--region` explicitly, so the CloudShell region does not matter).
+
+Download the script and make it executable:
+
+```bash
+chmod +x aws_ipv6_vpc_multi.sh
+```
+
+Enable IPv6 in every enabled region:
+
+```bash
+./aws_ipv6_vpc_multi.sh
+```
+
+Or enable IPv6 in just one region:
+
+```bash
+./aws_ipv6_vpc_multi.sh us-east-1
+```
 
 <hr>
 
