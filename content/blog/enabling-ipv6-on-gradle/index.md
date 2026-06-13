@@ -1,131 +1,55 @@
 ---
 title: Enabling IPv6 on Gradle
 date: "2026-06-06T10:00z"
-description: "Enabling IPv6 on Gradle by setting java.net.preferIPv6Addresses in the vmoptions file"
+description: "Enabling IPv6 on Gradle by setting java.net.preferIPv6Addresses in gradle.properties or shell profile"
 draft: false
 ---
 
 Like every other JVM application, Gradle prefers IPv4 over IPv6 by default. On an IPv6-only network — or any time you want Gradle to reach out over IPv6 — the build can fail to resolve hosts or download dependencies because the Gradle daemon keeps picking IPv4 addresses.
 
-The fix is the same `java.net.preferIPv6Addresses` system property used for [Java and Maven](/enabling-ipv6-on-maven-java/). When you run Gradle from IntelliJ IDEA or Android Studio, the cleanest place to set it is the IDE's `vmoptions` file.
+This is especially common on mobile and carrier networks that use NAT64, where IPv4 addresses are synthesized into IPv6 prefixes (e.g., `64:ff9b1::`). If the JVM tries to connect using IPv4 directly instead of going through the NAT64 gateway, the connection fails.
 
-## The vmoptions file
+The fix is the same `java.net.preferIPv6Addresses` system property used for [Java and Maven](/enabling-ipv6-on-maven-java/).
 
-Add the following line to the vmoptions file:
+## The error
 
-```
--Djava.net.preferIPv6Addresses=true
-```
-
-If the file already contains `-Djava.net.preferIPv4Stack=true` or `-Djava.net.preferIPv4Addresses=true`, remove that line so it does not override the IPv6 preference.
-
-The easiest way to open the right file is from inside the IDE: **Help → Edit Custom VM Options**. This creates the file in the correct location for your platform and opens it for editing. If you would rather edit it directly, the default locations are below.
-
-For IntelliJ IDEA the file is named `idea.vmoptions`; for Android Studio it is `studio.vmoptions`. Replace `<version>` with the version you have installed.
-
-### Linux
-
-IntelliJ IDEA:
+If your build fails with something like this, it means Gradle couldn't download dependencies over IPv6:
 
 ```
-~/.config/JetBrains/IntelliJIdea<version>/idea.vmoptions
+Caused by: org.gradle.internal.resource.transport.http.HttpRequestException:
+  Could not GET 'https://dl.google.com/dl/android/maven2/com/android/tools/build/gradle/8.13.2/gradle-8.13.2.pom'.
 ```
 
-Android Studio:
+The stack trace will include lines like `HttpClientHelper.createHttpRequestException` and `HttpResourceAccessor.openResource`. This happens because the JVM falls back to IPv4, which doesn't work on an IPv6-only network or through a NAT64 gateway.
 
-```
-~/.config/Google/AndroidStudio<version>/studio.vmoptions
-```
+## gradle.properties
 
-### macOS
-
-IntelliJ IDEA:
-
-```
-~/Library/Application Support/JetBrains/IntelliJIdea<version>/idea.vmoptions
-```
-
-Android Studio:
-
-```
-~/Library/Application Support/Google/AndroidStudio<version>/studio.vmoptions
-```
-
-### Windows
-
-IntelliJ IDEA:
-
-```
-%APPDATA%\JetBrains\IntelliJIdea<version>\idea.vmoptions
-```
-
-Android Studio:
-
-```
-%APPDATA%\Google\AndroidStudio<version>\studio.vmoptions
-```
-
-### Resolving the version automatically
-
-If you have several versions installed — or just don't want to look up the version number — replace `<version>` with a `*` wildcard and let the shell find the file for you. The one-liners below append the option to the most recently used version's vmoptions file.
-
-> ⚠️ These commands append the line without checking, so running one twice adds the option twice. Run it once, or open the file afterwards to confirm there is only a single `preferIPv6Addresses` line.
-
-#### IntelliJ IDEA
-
-Linux:
-
-```bash
-echo "-Djava.net.preferIPv6Addresses=true" >> "$(ls -dt ~/.config/JetBrains/IntelliJIdea*/ | head -1)idea.vmoptions"
-```
-
-macOS:
-
-```bash
-echo "-Djava.net.preferIPv6Addresses=true" >> "$(ls -dt ~/Library/Application\ Support/JetBrains/IntelliJIdea*/ | head -1)idea.vmoptions"
-```
-
-Windows (PowerShell):
-
-```powershell
-Add-Content (Get-ChildItem "$env:APPDATA\JetBrains\IntelliJIdea*\idea.vmoptions" | Sort-Object LastWriteTime | Select-Object -Last 1).FullName "-Djava.net.preferIPv6Addresses=true"
-```
-
-#### Android Studio
-
-Linux:
-
-```bash
-echo "-Djava.net.preferIPv6Addresses=true" >> "$(ls -dt ~/.config/Google/AndroidStudio*/ | head -1)studio.vmoptions"
-```
-
-macOS:
-
-```bash
-echo "-Djava.net.preferIPv6Addresses=true" >> "$(ls -dt ~/Library/Application\ Support/Google/AndroidStudio*/ | head -1)studio.vmoptions"
-```
-
-Windows (PowerShell):
-
-```powershell
-Add-Content (Get-ChildItem "$env:APPDATA\Google\AndroidStudio*\studio.vmoptions" | Sort-Object LastWriteTime | Select-Object -Last 1).FullName "-Djava.net.preferIPv6Addresses=true"
-```
-
-After saving the file, stop any running Gradle daemon with `./gradlew --stop` and restart the IDE so the new option is picked up.
-
-## Command-line Gradle
-
-If you run Gradle outside an IDE there is no vmoptions file. Set the same property through `org.gradle.jvmargs` in your `gradle.properties` instead:
+Set the property in your project's `gradle.properties`:
 
 ```
 org.gradle.jvmargs=-Djava.net.preferIPv6Addresses=true
 ```
 
-Or export it globally so every Gradle invocation gets it:
+This applies to all Gradle invocations in that project.
 
+## Shell profile (permanent fix)
+
+If you keep hitting `HttpRequestException` when Gradle tries to download dependencies over IPv6, add these two environment variables to your shell profile (`~/.bashrc` or `~/.zshrc`):
+
+```bash
+export JAVA_TOOL_OPTIONS="-Djava.net.preferIPv6Addresses=true"
+export JAVA_OPTS="-Djava.net.preferIPv4Stack=false"
 ```
-export GRADLE_OPTS="-Djava.net.preferIPv6Addresses=true"
+
+Then reload:
+
+```bash
+source ~/.bashrc
 ```
+
+`JAVA_TOOL_OPTIONS` is picked up by every JVM invocation — not just Gradle — so this is the most permanent, system-wide fix. The `JAVA_OPTS` line is a fallback for tools that read that variable instead.
+
+After making changes, stop any running Gradle daemon with `./gradlew --stop`.
 
 <hr>
 
