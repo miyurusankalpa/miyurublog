@@ -66,3 +66,5 @@ curl -sL https://blog.miyuru.lk/aws_ipv6_vpc_multi.sh | bash -s -- us-east-1
 
 Now your EC2 instances launched in the default VPC will have IPv6 addresses by default. Make sure to configure the security groups to allow IPv6 traffic as well. 
 You can also test the connectivity to other IPv6-enabled resources on the internet! 😊
+
+While you're at it, extend the same default VPC with free, dual-stack [gateway endpoints for S3 and DynamoDB](/aws-default-vpc-gateway-endpoints/) and keep that traffic off the public internet for free.
