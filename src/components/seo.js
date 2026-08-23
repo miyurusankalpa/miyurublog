@@ -10,7 +10,29 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-const SEO = ({ description, lang, meta, title }) => {
+const absoluteUrl = (url, siteUrl) => {
+  if (!url) return undefined
+  if (/^https?:\/\//i.test(url)) return url
+  return `${siteUrl}${url.startsWith(`/`) ? `` : `/`}${url}`
+}
+
+const twitterHandle = handle => {
+  if (!handle) return undefined
+  return handle.startsWith(`@`) ? handle : `@${handle}`
+}
+
+const SEO = ({
+  description,
+  lang,
+  meta,
+  title,
+  image,
+  pathname,
+  type,
+  publishedTime,
+  modifiedTime,
+  schema,
+}) => {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -18,6 +40,10 @@ const SEO = ({ description, lang, meta, title }) => {
           siteMetadata {
             title
             description
+            siteUrl
+            author {
+              name
+            }
             social {
               twitter
             }
@@ -29,6 +55,11 @@ const SEO = ({ description, lang, meta, title }) => {
 
   const metaDescription = description || site.siteMetadata.description
   const defaultTitle = site.siteMetadata?.title
+  const siteUrl = site.siteMetadata?.siteUrl || ``
+  const isArticle = type === `article`
+  const canonical = pathname ? absoluteUrl(pathname, siteUrl) : undefined
+  const imageUrl = absoluteUrl(image, siteUrl)
+  const siteTwitter = twitterHandle(site.siteMetadata?.social?.twitter)
 
   return (
     <Helmet
@@ -37,6 +68,7 @@ const SEO = ({ description, lang, meta, title }) => {
       }}
       title={title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      link={canonical ? [{ rel: `canonical`, href: canonical }] : undefined}
       meta={[
         {
           name: `description`,
@@ -52,15 +84,27 @@ const SEO = ({ description, lang, meta, title }) => {
         },
         {
           property: `og:type`,
-          content: `website`,
+          content: isArticle ? `article` : `website`,
+        },
+        {
+          property: `og:site_name`,
+          content: defaultTitle,
+        },
+        {
+          property: `og:url`,
+          content: canonical || siteUrl,
         },
         {
           name: `twitter:card`,
-          content: `summary`,
+          content: imageUrl ? `summary_large_image` : `summary`,
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata?.social?.twitter || ``,
+          content: siteTwitter,
+        },
+        {
+          name: `twitter:site`,
+          content: siteTwitter,
         },
         {
           name: `twitter:title`,
@@ -70,8 +114,37 @@ const SEO = ({ description, lang, meta, title }) => {
           name: `twitter:description`,
           content: metaDescription,
         },
-      ].concat(meta)}
-    />
+        imageUrl && {
+          property: `og:image`,
+          content: imageUrl,
+        },
+        imageUrl && {
+          name: `twitter:image`,
+          content: imageUrl,
+        },
+        isArticle &&
+          publishedTime && {
+            property: `article:published_time`,
+            content: publishedTime,
+          },
+        isArticle &&
+          modifiedTime && {
+            property: `article:modified_time`,
+            content: modifiedTime,
+          },
+        isArticle &&
+          site.siteMetadata?.author?.name && {
+            property: `article:author`,
+            content: site.siteMetadata.author.name,
+          },
+      ]
+        .filter(Boolean)
+        .concat(meta)}
+    >
+      {schema && (
+        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      )}
+    </Helmet>
   )
 }
 
@@ -79,6 +152,7 @@ SEO.defaultProps = {
   lang: `en`,
   meta: [],
   description: ``,
+  type: `website`,
 }
 
 SEO.propTypes = {
@@ -86,6 +160,12 @@ SEO.propTypes = {
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  image: PropTypes.string,
+  pathname: PropTypes.string,
+  type: PropTypes.oneOf([`website`, `article`]),
+  publishedTime: PropTypes.string,
+  modifiedTime: PropTypes.string,
+  schema: PropTypes.object,
 }
 
 export default SEO

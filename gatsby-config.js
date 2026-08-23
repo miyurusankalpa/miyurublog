@@ -33,7 +33,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-adsense`,
       options: {
-        publisherId: `ca-pub-1875349616183307`
+        publisherId: `ca-pub-1875349616183307`,
       },
     },
     {
@@ -43,7 +43,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 630,
+              maxWidth: 830,
             },
           },
           {
@@ -67,7 +67,7 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
-   // `gatsby-plugin-draft`,
+    // `gatsby-plugin-draft`,
     `gatsby-plugin-sitemap`,
     {
       resolve: "gatsby-plugin-matomo",
@@ -128,11 +128,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Miyuru Blog`,
-        short_name: `GatsbyJS`,
+        name: `Miyuru Tech Blog`,
+        short_name: `Miyuru Blog`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
+        background_color: `#051822`,
+        theme_color: `#051822`,
         display: `minimal-ui`,
         icon: `content/assets/gatsby-icon.png`,
       },

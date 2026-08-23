@@ -7,12 +7,23 @@ import SEO from "../components/seo"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
+  const siteUrl = data.site.siteMetadata?.siteUrl || ``
   const posts = data.allMarkdownRemark.nodes
+  const websiteSchema = {
+    "@context": `https://schema.org`,
+    "@type": `WebSite`,
+    name: siteTitle,
+    url: siteUrl,
+  }
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <SEO title="All posts" />
+        <SEO
+          title="All posts"
+          pathname={location.pathname}
+          schema={websiteSchema}
+        />
         <Bio />
         <p>
           No blog posts found. Add markdown posts to "content/blog" (or the
@@ -25,7 +36,11 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title="All posts" />
+      <SEO
+        title="All posts"
+        pathname={location.pathname}
+        schema={websiteSchema}
+      />
       <Bio />
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
@@ -37,7 +52,7 @@ const BlogIndex = ({ data, location }) => {
                 className="post-list-item"
                 itemScope
                 itemType="http://schema.org/Article"
-                >
+              >
                 <header>
                   <h2>
                     <Link to={post.fields.slug} itemProp="url">
@@ -48,8 +63,7 @@ const BlogIndex = ({ data, location }) => {
                     {post.frontmatter.date}
                     {post.frontmatter.updated && (
                       <>
-                        {` `}
-                        | Updated {post.frontmatter.updated}
+                        {` `}| Updated {post.frontmatter.updated}
                       </>
                     )}
                   </small>
@@ -78,6 +92,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {

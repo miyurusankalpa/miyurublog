@@ -12,6 +12,7 @@
   --maxWidth-4xl: 56rem;
   --maxWidth-full: "100%";
   --maxWidth-wrapper: var(--maxWidth-3xl);
+  --maxWidth-wrapper-wide: 76rem;
   --spacing-px: "1px";
   --spacing-0: 0;
   --spacing-1: 0.25rem;
@@ -55,7 +56,8 @@
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
   --color-primary: #d1d1d1;
-  --color-dark: #061f2b;
+  --color-dark: #051822;
+  --color-line: rgba(255, 255, 255, 0.12);
   --color-text: #fff;
   --color-table: black;
   --color-text-light: #ededed;
@@ -83,6 +85,38 @@ body {
   font-size: var(--fontSize-1);
   color: var(--color-text);
   background: var(--color-dark);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+      56rem 30rem at 50% -10rem,
+      rgba(122, 217, 255, 0.09),
+      transparent 70%
+    ),
+    radial-gradient(
+      40rem 26rem at 88% 112%,
+      rgba(122, 217, 255, 0.05),
+      transparent 72%
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.028) 0,
+      rgba(255, 255, 255, 0.028) 1px,
+      transparent 1px,
+      transparent 120px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.02) 0,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 110px
+    );
 }
 
 footer {
@@ -253,6 +287,10 @@ a:focus {
   padding: var(--spacing-10) var(--spacing-5);
 }
 
+.global-wrapper--wide {
+  max-width: var(--maxWidth-wrapper-wide);
+}
+
 .global-wrapper[data-is-root-path="true"] .bio {
   margin-bottom: var(--spacing-20);
 }
@@ -318,18 +356,27 @@ a:focus {
   font-family: var(--font-heading);
 }
 
+.blog-post-layout {
+  min-width: 0;
+}
+
 .blog-post-toc {
   margin-bottom: var(--spacing-10);
   padding: var(--spacing-6);
-  border: 1px solid var(--color-accent);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
 }
 
 .blog-post-toc h2 {
   margin-top: 0;
   margin-bottom: var(--spacing-4);
-  font-size: var(--fontSize-3);
+  font-family: var(--font-heading);
+  font-size: var(--fontSize-0);
+  font-weight: var(--fontWeight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-light);
 }
 
 .blog-post-toc ul {
@@ -340,6 +387,25 @@ a:focus {
 
 .blog-post-toc li {
   margin-bottom: var(--spacing-2);
+}
+
+.blog-post-toc a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  transition: color 0.15s ease-in-out;
+}
+
+.blog-post-toc a:hover,
+.blog-post-toc a:focus {
+  color: var(--color-heading);
+}
+
+.blog-post-toc a.toc-active {
+  color: var(--color-heading);
+  font-weight: var(--fontWeight-semibold);
 }
 
 .blog-post-toc .toc-level-3 {
@@ -401,12 +467,64 @@ a:focus {
   transition: background-color 0.15s ease-in-out;
 }
 
+.code-copy-button {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  padding: 0.2rem 0.55rem;
+  color: var(--color-text);
+  background: rgba(5, 24, 34, 0.85);
+  font-family: var(--fontFamily-sans);
+  font-size: var(--fontSize-0);
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
 .code-copy-button:hover,
 .code-copy-button:focus {
   background: rgba(122, 217, 255, 0.25);
 }
 
 /* Media queries */
+
+@media (min-width: 64rem) {
+  .blog-post-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    grid-template-areas:
+      "header toc"
+      "body toc";
+    column-gap: var(--spacing-16);
+    align-items: start;
+  }
+
+  .blog-post-header {
+    grid-area: header;
+    min-width: 0;
+  }
+
+  .blog-post-body {
+    grid-area: body;
+    min-width: 0;
+  }
+
+  .blog-post-toc {
+    grid-area: toc;
+    position: sticky;
+    top: var(--spacing-8);
+    max-height: calc(100vh - var(--spacing-16));
+    overflow-y: auto;
+    margin-bottom: 0;
+    padding: var(--spacing-0) 0 var(--spacing-0) var(--spacing-5);
+    border: 0;
+    border-radius: 0;
+    border-left: 1px solid var(--color-line);
+    background: transparent;
+  }
+}
 
 @media (max-width: 42rem) {
   blockquote {

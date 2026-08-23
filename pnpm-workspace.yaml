@@ -1,0 +1,10 @@
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: false
+  core-js-pure: false
+  es5-ext: false
+  gatsby: false
+  gatsby-cli: false
+  lmdb: true
+  msgpackr-extract: true
+  sharp: true
