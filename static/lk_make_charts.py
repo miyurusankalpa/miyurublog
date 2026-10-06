@@ -59,7 +59,7 @@ owners = json.load(open(OWNERS)) if os.path.exists(OWNERS) else {}
 FRIENDLY = {
     "2606:4700": "Cloudflare",
     "2401:dd00": "LEARN (LK education network)",
-    "2401:d00": "Bosch — mismatched AAAA",
+    "2401:d00": "Bosch space — typo",
     "2a02:4780": "Hostinger",
     "2404:6800": "Google",
     "2600:9000": "Amazon CloudFront",
@@ -322,7 +322,7 @@ title(fig, "Who actually provides the IPv6? (owners via RDAP / WHOIS)",
 ax.legend(handles=[
     Patch(facecolor=lighten(INDIGO, 0.35), label="Foreign CDN / cloud"),
     Patch(facecolor=lighten(AMBER, 0.35), label="LEARN (Sri Lanka)"),
-    Patch(facecolor=lighten(ROSE, 0.35), label="Bosch space — misdirected AAAA"),
+    Patch(facecolor=lighten(ROSE, 0.35), label="Bosch space — typo'd LEARN address"),
 ], loc="lower right", frameon=False, fontsize=9.5)
 save(fig, "chart-v6-origin.png")
 

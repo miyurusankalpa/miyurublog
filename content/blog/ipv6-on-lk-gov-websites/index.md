@@ -75,13 +75,15 @@ Ten hosts publish an AAAA record and then fail when you actually try to use it. 
 | `uom.lk` | `2401:dd00:10:1::87` | timed out | up |
 | `www.ac.lk` | `2401:dd00:1::189` | **connection refused** | up |
 | `www.accimt.ac.lk` | `2401:d00:414::1` | timed out | up |
-| `www.fcd.gov.lk` | `2607:f298:6:a016::317:855` | timed out | down |
+| `www.fcd.gov.lk` | `2607:f298:6:a016::317:855` | timed out | down ¹ |
 | `www.mrt.ac.lk` | `2401:dd00:10:1::88` | timed out | up |
 | `www.ruh.ac.lk` | `2401:dd00:38::3` | timed out | up |
 | `www.seu.ac.lk` | `2401:dd00:1::1631` | timed out | up |
 | `www.svias.esn.ac.lk` | `2401:dd00:67:200::100` | timed out | up |
 | `www.uwu.ac.lk` | `2401:dd00:72::7` | timed out | up |
 | `www.vpa.ac.lk` | `2401:dd00:78:e001::6` | timed out | up |
+
+¹ The table is the audit snapshot. `www.fcd.gov.lk` was re-checked afterwards and serves HTTP on port 80 — see point 3 below.
 
 Three things stand out:
 
@@ -97,11 +99,13 @@ The organisation that operates the `.ac.lk` DNS zone has a AAAA record pointing 
 
 **2. Eight of the ten broken hosts sit on `2401:dd00::/32`** — Sri Lanka's domestic education/research network, operated by LEARN. It's not one or two flaky servers: `mrt`, `ruh`, `seu`, `uwu`, `vpa`, `svias`, `uom` and `ac.lk` all advertise IPv6 addresses that black-hole TCP. Across that whole prefix exactly **two** hosts have a working web server over IPv6: `www.pgis.lk` and `www.ucsc.cmb.ac.lk`. Whoever runs that network has enabled AAAA at the DNS level but not actually made the web tier reachable over IPv6.
 
-`www.accimt.ac.lk` is even stranger: its AAAA (`2401:d00:414::1`) isn't a LEARN address at all — it falls inside **Bosch's** `2401:0d00::/32`, an unrelated corporate network. A misdirected record, and it times out exactly like the rest.
+`www.accimt.ac.lk` is the odd one out: its AAAA is `2401:d00:414::1`, exactly **one dropped `d`** away from `2401:dd00:414::1` — LEARN's `2401:dd00::/32`. RDAP confirms `2401:0d00::/32` has been Bosch's since 2011, while `2401:dd00::/32` is LEARN's, and accimt's IPv4 (`192.248.85.7`) sits inside LEARN's own `192.248.0.0/17`. So the record is a typo in the DNS zone rather than a deliberate foreign host — although correcting the typo alone won't bring the site up, since nothing answers on the LEARN address either.
 
-**3. `www.fcd.gov.lk` is just dead** — IPv4 doesn't answer either (though a second probe run did catch IPv4 up, so it's at least partially flaky).
+**3. `www.fcd.gov.lk` is serving plain HTTP only.** At audit time port 443 didn't answer on IPv4 either, which initially looked like a dead site. Re-checking on 6 October, the site is very much alive on port 80 (`200 OK`, Apache) — but 443 still answers on neither address family, and the IPv6 failure has hardened from a timeout into `No route to host`. So the AAAA record is doubly useless here: the address isn't routed, and even if it were, there's no HTTPS listener behind it.
 
 These are worse than having no AAAA at all: a dual-stack client tries IPv6 first, waits for the timeout (happy eyeballs fallback usually saves the user, but adds latency), and metrics collected from AAAA lookups alone will count these as "IPv6 enabled".
+
+**LEARN has been notified** about all ten broken records, including the `www.ac.lk` refusal and the `www.accimt.ac.lk` typo.
 
 ## Where does the IPv6 actually come from?
 
@@ -109,7 +113,7 @@ These are worse than having no AAAA at all: a dual-stack client tries IPv6 first
 
 Every `/32` above was looked up through [RDAP](https://rdap.org) / WHOIS to find its real owner. Of the 92 hosts with an AAAA record, **59 are Cloudflare** (`2606:4700::/32`). The rest: Hostinger 6 (`2a02:4780::/32`), Google 5, Amazon CloudFront 5 (behind `cbsl`, `mfa`, `sec`, `hdfc` and `sliit`), then one each from Microsoft, GitHub, ITRON, UK host 20i, XeonBD in Bangladesh and DreamHost — **81 of 92 (88%) of Sri Lanka's "IPv6-enabled" government web presence is provided by networks outside the country, not by local infrastructure.**
 
-The only domestic IPv6 on the list comes from `2401:dd00::/32` — **LEARN's own network: 10 hosts, of which only 2 actually work.** The eleventh "local-looking" address, `www.accimt.ac.lk`'s `2401:d00:414::1`, turns out to be inside Bosch's corporate space instead (see above).
+The only domestic IPv6 on the list comes from `2401:dd00::/32` — **LEARN's own network: 10 hosts, of which only 2 actually work.** The eleventh "local-looking" address, `www.accimt.ac.lk`'s `2401:d00:414::1`, is a typo'd attempt at a LEARN address that landed in someone else's block instead (see above).
 
 ## Local hosting has no IPv6 at all
 
@@ -134,7 +138,7 @@ www.sltc.lk  (apex sltc.lk still resolves, but without AAAA)
 - **When AAAA exists it's usually real IPv6** — 89.1% work end-to-end, all with valid certificates, mostly TLS 1.3.
 - **But 10 hosts have lies in DNS**: AAAA records with nothing listening behind them. Nine are IPv6-only breakages (IPv4 fine), and eight of them are on one domestic prefix, `2401:dd00::/32`.
 - **The irony:** the `.ac.lk` registry's own website is on that list.
-- **88% of the working IPv6 comes from outside the country** (mostly Cloudflare). The only domestic source is LEARN's `2401:dd00::/32` — 10 AAAA records, 8 of them broken — plus one address that points into Bosch's space by mistake.
+- **88% of the working IPv6 comes from outside the country** (mostly Cloudflare). The only domestic source is LEARN's `2401:dd00::/32` — 10 AAAA records, 8 of them broken — plus one address that's a typo'd attempt at a LEARN address.
 - Fixing this isn't about webmasters — it's about the handful of local hosting providers serving 200+ government sites without IPv6.
 
 ## Downloads
